@@ -20,7 +20,14 @@ module.exports = {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material Icons'
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -33,6 +40,7 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
+  // { src: '~/plugins/vue-awesome', ssr: false }
   plugins: [],
   /*
    ** Nuxt.js dev-modules
@@ -62,7 +70,7 @@ module.exports = {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -84,5 +92,6 @@ module.exports = {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+    // transpile: [/vue-awesome/]
   }
 }

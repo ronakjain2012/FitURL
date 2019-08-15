@@ -27,9 +27,9 @@ class ShortUrlsSchema extends Schema {
       table.string('display_ads', 1).nullable()
       table.string('analytic_report', 1).nullable()
       table.string('force_disabled', 1).nullable()
-      table.string('created_at', 1).nullable()
-      table.string('created_at', 1).nullable()
-      table.string('deleted_at', 1).nullable()
+      table.timestamp('created_at')
+      table.timestamp('created_at', 1).nullable()
+      table.timestamp('deleted_at', 1).nullable()
     })
   }
 

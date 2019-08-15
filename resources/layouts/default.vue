@@ -1,65 +1,60 @@
 <template>
-  <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
-    </v-app-bar>
+  <v-app>
     <v-content>
-      <v-container>
-        <nuxt />
-      </v-container>
+      <v-card class="overflow-hidden scroll-y" height="100%" fill-height>
+        <v-app-bar
+          :collapse="!collapseOnScroll"
+          :collapse-on-scroll="collapseOnScroll"
+          absolute
+          color="deep-purple accent-4"
+          scroll-target="#scrolling-techniques-6"
+        >
+          <v-app-bar-nav-icon></v-app-bar-nav-icon>
+          <v-toolbar-title class="text-primary">{{ page.title }}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <!-- <v-checkbox v-model="collapseOnScroll" color="white" hide-details></v-checkbox> -->
+        </v-app-bar>
+        <v-sheet id="scrolling-techniques-6" class="overflow-y-auto">
+          <v-container fluid fill-height style="margin-top:4%">
+            <nuxt />
+          </v-container>
+        </v-sheet>
+      </v-card>
     </v-content>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; 2019</span>
+
+    <v-footer padless fixed>
+      <v-bottom-navigation color="deep-purple accent-4">
+        <v-btn>
+          <span>Home</span>
+          <v-icon>beach_access</v-icon>
+        </v-btn>
+
+
+        <v-btn>
+          <span>APIs</span>
+          <v-icon>repeat</v-icon>
+        </v-btn>
+
+        <v-btn>
+          <span>Example</span>
+          <v-icon>pages</v-icon>
+        </v-btn>
+
+        <v-btn>
+          <span>Enterprise Use</span>
+          <v-icon>business_center</v-icon>
+        </v-btn>
+
+        <v-btn>
+          <span>Terms of use</span>
+          <v-icon>outlined_flag</v-icon>
+        </v-btn>
+
+        <v-btn>
+          <span>Contact Us</span>
+          <v-icon>ring_volume</v-icon>
+        </v-btn>
+      </v-bottom-navigation>
     </v-footer>
   </v-app>
 </template>
@@ -68,25 +63,10 @@
 export default {
   data() {
     return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
+      collapseOnScroll: true,
+      page: {
+        title: 'Shorter'
+      }
     }
   }
 }
