@@ -1,4 +1,4 @@
-# shorter
+# firURL
 
 > Create short URLs Quick and Advance
 

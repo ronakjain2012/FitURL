@@ -1,57 +1,81 @@
 <template>
   <v-app>
-    <v-content>
-      <v-card class="overflow-hidden scroll-y" height="100%" fill-height>
-        <v-app-bar
-          :collapse="!collapseOnScroll"
-          :collapse-on-scroll="collapseOnScroll"
-          absolute
-          color="deep-purple accent-4"
-          scroll-target="#scrolling-techniques-6"
-        >
-          <v-app-bar-nav-icon></v-app-bar-nav-icon>
-          <v-toolbar-title class="text-primary">{{ page.title }}</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <!-- <v-checkbox v-model="collapseOnScroll" color="white" hide-details></v-checkbox> -->
-        </v-app-bar>
-        <v-sheet id="scrolling-techniques-6" class="overflow-y-auto">
-          <v-container fluid fill-height style="margin-top:4%">
-            <nuxt />
-          </v-container>
-        </v-sheet>
-      </v-card>
-    </v-content>
+    <v-app-bar color="deep-purple accent-4 main-font" absolute>
+      <v-img class="logo-style" src="favicon.ico" max-height="45" max-width="45" />
+      <v-toolbar-title class="white--text secondary-font">Fit URL</v-toolbar-title>
 
+      <v-spacer></v-spacer>
+
+      <v-btn rounded class="margin-right-15">Home</v-btn>
+
+      <v-btn rounded class="margin-right-15">Reports</v-btn>
+
+      <v-btn rounded class="margin-right-15">Enterprise Use</v-btn>
+
+      <v-btn rounded class="margin-right-15">APIs</v-btn>
+
+      <v-btn rounded class="margin-right-15">Example</v-btn>
+
+      <v-btn rounded class="margin-right-15">Contact Us</v-btn>
+
+      <!-- <v-menu left bottom class="main-font">
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on">
+            <v-icon class="white--text">mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item>
+            <v-list-item-title>Option</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>-->
+    </v-app-bar>
+    <v-content>
+      <v-container class="padding-app">
+        <nuxt />
+      </v-container>
+      <!-- APP UI elements -->
+      <ProcessLoader></ProcessLoader>
+      <Snackbar></Snackbar>
+      <Dialog></Dialog>
+    </v-content>
     <v-footer padless fixed>
       <v-bottom-navigation color="deep-purple accent-4">
         <v-btn>
-          <span>Home</span>
+          <span class="main-font">Home</span>
           <v-icon>beach_access</v-icon>
         </v-btn>
 
+        <v-btn>
+          <span class="main-font">Reports</span>
+          <v-icon>archive</v-icon>
+        </v-btn>
 
         <v-btn>
-          <span>APIs</span>
+          <span class="main-font">APIs</span>
           <v-icon>repeat</v-icon>
         </v-btn>
 
         <v-btn>
-          <span>Example</span>
+          <span class="main-font">Example</span>
           <v-icon>pages</v-icon>
         </v-btn>
 
         <v-btn>
-          <span>Enterprise Use</span>
+          <span class="main-font">Enterprise Use</span>
           <v-icon>business_center</v-icon>
         </v-btn>
 
         <v-btn>
-          <span>Terms of use</span>
+          <span class="main-font">Terms of use</span>
           <v-icon>outlined_flag</v-icon>
         </v-btn>
-
-        <v-btn>
-          <span>Contact Us</span>
+{{getDialogAction}}
+        <v-btn
+          @click="showDialog({title:'sexy',content:'asdddddddd',showCloseOnly:false,showConfirm:true})"
+        >
+          <span class="main-font">Contact Us</span>
           <v-icon>ring_volume</v-icon>
         </v-btn>
       </v-bottom-navigation>
@@ -60,14 +84,59 @@
 </template>
 
 <script>
+/* eslint-disable */
+import { mapGetters, mapMutations, mapState } from 'vuex'
+import ProcessLoader from '~/components/ProcessLoader.vue'
+import Snackbar from '~/components/Snackbar.vue'
+import Dialog from '~/components/Dialog.vue'
+
 export default {
+  components: {
+    Dialog,
+    Snackbar,
+    ProcessLoader
+  },
   data() {
     return {
       collapseOnScroll: true,
       page: {
-        title: 'Shorter'
+        title: 'FitURL'
       }
     }
+  },
+  methods: {
+    ...mapMutations({
+      showDialog: 'ui/showDialog'
+    })
+  },
+  computed:{
+    ...mapGetters({
+      getDialogAction: 'ui/getDialogAction'
+    })
   }
 }
 </script>
+<style scoped>
+.main-font {
+  font-family: 'ABeeZee', sans-serif;
+}
+.secondary-font {
+  font-family: 'Anton', sans-serif;
+}
+.padding-app {
+  padding-top: 6.5rem;
+}
+.margin-right-15 {
+  margin-right: 15px;
+}
+.logo-style {
+  border-radius: 50%;
+  padding: 10px;
+  margin: 5px;
+  margin-right: 15px;
+}
+div.container.padding-app {
+  padding-right: 50px;
+  padding-left: 50px;
+}
+</style>

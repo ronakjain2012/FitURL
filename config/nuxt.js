@@ -26,6 +26,15 @@ module.exports = {
         rel: 'stylesheet',
         href:
           'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material Icons'
+      },
+      /**
+       * font-family: 'Anton', sans-serif;
+       * font-family: 'ABeeZee', sans-serif;
+       */
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css?family=ABeeZee|Anton&display=swap'
       }
     ]
   },

@@ -1,12 +1,12 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
+  <v-layout row wrap justify-center align-center>
+    <v-flex xs12 sm12 md12>
       <div class="text-center">
         <logo />
       </div>
     </v-flex>
-    <v-flex xs12 sm8 md6>
-      <v-card width="1500">
+    <v-flex xs12 sm12 md12 class="main-font">
+      <v-card>
         <v-card-text>
           <v-container fluid>
             <v-row>
@@ -22,14 +22,17 @@
                   prepend-inner-icon="link"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" md="2">
-                <div class="text-right">
+              <v-col cols="12" md="2" class="text-center">
+                <div class="text-center">
                   <v-btn large text rounded @click="showAdvance = !showAdvance">Advance</v-btn>
                   <v-btn large color="primary" rounded>Short</v-btn>
                 </div>
               </v-col>
+              <v-col cols="12" sm="6" md="3" no-gutters>
+                <v-text-field label="Url Alias (web-meeting)" :error-messages="null"></v-text-field>
+              </v-col>
             </v-row>
-            <v-row v-if="showAdvance">
+            <v-row v-if="showAdvance" class="main-font">
               <v-flex md12 sm12>
                 <v-card flat>
                   <v-card-text>
@@ -180,6 +183,7 @@
 <script>
 /* eslint-disable */
 import Logo from '~/components/Logo.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'index',
@@ -192,7 +196,7 @@ export default {
         (value) => !!value || 'Required.',
         (value) => (value || '').length <= 2000 || 'Max 2000 characters',
         (value) => {
-          const pattern = /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/;
+          const pattern = /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/
           return pattern.test(value) || 'Invalid URL.'
         }
       ],
@@ -216,10 +220,12 @@ export default {
       },
       datepicker: false,
       timepicker: false,
-      showAdvance: false,
+      showAdvance: false
     }
   },
-  watch: {}
+  computed: {
+    ...mapGetters(['app_name'])
+  }
 }
 </script>
 
@@ -228,6 +234,17 @@ export default {
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   animation: gradientBG 15s ease infinite;
   background-size: 400% 400%;
+}
+.main-font {
+  font-family: 'ABeeZee', sans-serif;
+}
+.secondary-font {
+  font-family: 'Anton', sans-serif;
+}
+
+div[class^='col'], div[class*='col'],.v-input {
+  padding: 0px;
+  padding-top: 0px;
 }
 
 @keyframes gradientBG {
