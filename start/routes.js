@@ -14,5 +14,6 @@
 */
 
 const Route = use('Route')
-Route.get('/short','IndexController.store')
+
+Route.post('/short','IndexController.store')
 Route.any('*', 'NuxtController.render')

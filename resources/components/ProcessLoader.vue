@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="loader" max-width="600" lazy persistent>
+  <v-dialog v-model="loader" max-width="600" persistent>
     <v-card height="400" flat color="rgba(255,255,255,0.9)">
       <v-card-text class="text-xs-center">
         <div class="box">
@@ -16,7 +16,7 @@
 
 <script>
 /* eslint-disable */
-import { mapGetters, mapMutations, mapState } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'ProcessLoader',
@@ -31,7 +31,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({
+    ...mapActions({
       hideLoader: 'ui/hideLoader',
       showLoader: 'ui/showLoader'
     })

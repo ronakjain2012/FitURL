@@ -1,10 +1,20 @@
 <template>
   <div class="text-left">
-    <v-flex tag="h1" class="main-title">Fit URL</v-flex>
-    <v-flex tag="h3" class="main-sub-title">
+    <v-flex class="main-sub-title">
       <v-card-text>
-        <p>Create and share powerful short links</p>
-        <p>Are you sick of posting URLs in emails only to have it break when sent causing the recipient to have to cut and paste it back together? Then you've come to the right place. By entering in a URL in the text field below, we will create a Fit URL that will not break in email postings</p>
+        <v-container fluid>
+          <v-row>
+            <v-col cols="12" md="7">
+              <h1 class="main-title">Fit URL</h1>
+              <br/>
+              <br/>
+              <p>Create and share powerful short links</p>
+            </v-col>
+            <v-col cols="12" md="5">
+              <p>Are you sick of posting URLs in emails only to have it break when sent causing the recipient to have to cut and paste it back together? Then you've come to the right place. By entering in a URL in the text field below, we will create a Fit URL that will not break in email postings</p>
+            </v-col>
+          </v-row>
+        </v-container>
       </v-card-text>
     </v-flex>
   </div>
@@ -12,7 +22,7 @@
 
 <style scoped>
 .main-title {
-  font-family: 'Anton', sans-serif;
+  font-family: 'ABeeZee', sans-serif;
   font-size: 80px;
   letter-spacing: 2 px;
 }

@@ -17,7 +17,7 @@
 
 <script>
 /* eslint-disable */
-import { mapGetters, mapMutations, mapState } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'Snackbar',
@@ -35,7 +35,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({
+    ...mapActions({
       hideSnackbar: 'ui/hideSnackbar',
       showSnackbar: 'ui/showSnackbar'
     })

@@ -11,6 +11,7 @@
           <v-container fluid>
             <v-row>
               <v-col cols="12" md="10">
+                {{api_url}}
                 <v-text-field
                   label="Short URL"
                   autofocus
@@ -20,16 +21,17 @@
                   placeholder="Paste URL Here !!"
                   outlined
                   prepend-inner-icon="link"
+                  v-model="url_options.original_url"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" md="2" class="text-center">
                 <div class="text-center">
                   <v-btn large text rounded @click="showAdvance = !showAdvance">Advance</v-btn>
-                  <v-btn large color="primary" rounded>Short</v-btn>
+                  <v-btn large color="primary" rounded @click="shoutUrl">Short</v-btn>
                 </div>
               </v-col>
               <v-col cols="12" sm="6" md="3" no-gutters>
-                <v-text-field label="Url Alias (web-meeting)" :error-messages="null"></v-text-field>
+                <v-text-field label="Url Alias (web-meeting)" v-model="url_options.special_url" :error-messages="null"></v-text-field>
               </v-col>
             </v-row>
             <v-row v-if="showAdvance" class="main-font">
@@ -86,7 +88,7 @@
                             </v-col>
                             <v-col cols="12">
                               <v-checkbox
-                                v-model="url_options.display_ads"
+                                v-model="url_options.analytic_report"
                                 label="Show Ads on redirect"
                               ></v-checkbox>
                             </v-col>
@@ -184,7 +186,7 @@
 /* eslint-disable */
 import Logo from '~/components/Logo.vue'
 import { mapGetters } from 'vuex'
-
+import * as CONST from '~/constrains.js'
 export default {
   name: 'index',
   components: {
@@ -201,8 +203,6 @@ export default {
         }
       ],
       url_options: {
-        partition_index_number: 0,
-        partition_index: null,
         special_url: null,
         short_url: null,
         original_url: null,
@@ -211,12 +211,8 @@ export default {
         user_name: null,
         user_email: null,
         user_mobile: null,
-        user_country: null,
-        url_meta: null,
-        url_category: null,
         display_ads: 1,
         analytic_report: 0,
-        force_disabled: 0
       },
       datepicker: false,
       timepicker: false,
@@ -224,7 +220,20 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['app_name'])
+    ...mapGetters({
+      api_url: 'api/ApiUrl'
+    })
+  },
+  mounted(){
+  },
+  methods:{
+    shoutUrl() {
+      this.$axios.post(`${this.api_url}/${CONST.ADD_FIT_URL}`,this.url_options).then((response)=>{
+        console.log(response)
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
   }
 }
 </script>

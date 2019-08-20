@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar color="deep-purple accent-4 main-font" absolute>
       <v-img class="logo-style" src="favicon.ico" max-height="45" max-width="45" />
-      <v-toolbar-title class="white--text secondary-font">Fit URL</v-toolbar-title>
+      <v-toolbar-title class="white--text main-font">Fit URL</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -71,10 +71,7 @@
           <span class="main-font">Terms of use</span>
           <v-icon>outlined_flag</v-icon>
         </v-btn>
-{{getDialogAction}}
-        <v-btn
-          @click="showDialog({title:'sexy',content:'asdddddddd',showCloseOnly:false,showConfirm:true})"
-        >
+        <v-btn>
           <span class="main-font">Contact Us</span>
           <v-icon>ring_volume</v-icon>
         </v-btn>
@@ -85,7 +82,7 @@
 
 <script>
 /* eslint-disable */
-import { mapGetters, mapMutations, mapState } from 'vuex'
+import { mapGetters, mapMutations, mapState, mapActions } from 'vuex'
 import ProcessLoader from '~/components/ProcessLoader.vue'
 import Snackbar from '~/components/Snackbar.vue'
 import Dialog from '~/components/Dialog.vue'
@@ -98,22 +95,11 @@ export default {
   },
   data() {
     return {
-      collapseOnScroll: true,
       page: {
         title: 'FitURL'
       }
     }
   },
-  methods: {
-    ...mapMutations({
-      showDialog: 'ui/showDialog'
-    })
-  },
-  computed:{
-    ...mapGetters({
-      getDialogAction: 'ui/getDialogAction'
-    })
-  }
 }
 </script>
 <style scoped>

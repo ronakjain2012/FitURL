@@ -92,7 +92,7 @@ export const actions = {
   hideDialog({ commit }) {
     commit('SetHideDialog')
   },
-  dialogAction({ commit }, { status }) {
-    commit('SetDialogAction', status)
+  async dialogAction({ commit }, status) {
+    await commit('SetDialogAction', status)
   }
 }
