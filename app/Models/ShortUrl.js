@@ -4,9 +4,6 @@
 const Model = use('Model')
 
 class ShortUrl extends Model {
-  static padding = 100
-  static charSet =
-    'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
   static get table() {
     return 'short_urls'
   }
@@ -20,6 +17,14 @@ class ShortUrl extends Model {
     return 'YYYY-MM-DD HH:mm:ss'
   }
 
+  static get padding() {
+    return 100
+  }
+
+  static get charSet() {
+    return 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+  }
+
   static async short(data) {
     let dataModel = await this.findBy('original_url', data.original_url)
     if (dataModel) {
@@ -28,7 +33,7 @@ class ShortUrl extends Model {
       } else {
         return dataModel.short_url
       }
-      return dataModel._id
+      return dataModel.short_url
     } else {
       dataModel = new this()
       dataModel.original_url = data.original_url
@@ -36,23 +41,46 @@ class ShortUrl extends Model {
       const domainRegEx = /:\/\/(.[^/]+)/
       dataModel.domain = data.original_url.match(domainRegEx)[1]
       await dataModel.save()
-      return dataModel._id
+      dataModel.short_url = this.encodedUrl(dataModel._id)
+      dataModel.partition_index_number = dataModel.short_url.length
+      dataModel.partition_index = dataModel.short_url.charAt(0)
+      await dataModel.save()
+      this.decodeUrl(dataModel.short_url)
+      return dataModel.short_url
     }
   }
 
   static async createNew(data) {
-    let dataModel = new this()
     dataModel.original_url = data.original_url
     dataModel.special_url = data.special_url
     const domainRegEx = /:\/\/(.[^/]+)/
+    let dataModel = new this()
     dataModel.domain = data.original_url.match(domainRegEx)[1]
     await dataModel.save()
     return dataModel
   }
 
-  static encodedUrl(_id) {}
+  static encodedUrl(_id) {
+    let paddedId = this.padding + _id
+    let url = []
+    while (paddedId > 0) {
+      url.push(this.charSet.split('')[parseInt(paddedId % this.charSet.length)])
+      paddedId = parseInt(paddedId / this.charSet.length)
+      if (paddedId < 1) {
+        paddedId = 0
+      }
+    }
+    return url.reverse().join('')
+  }
 
-  static decodeUrl(url) {}
+  static decodeUrl(short_url) {
+    let _id = 0
+    let chars = this.charSet.split('')
+    for(var i=0;i<short_url.length;i++) {
+      _id = (62*_id)+chars.indexOf(short_url.charAt(i))
+    }
+    console.log(_id-this.padding)
+  }
 }
 
 module.exports = ShortUrl

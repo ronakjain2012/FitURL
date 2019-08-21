@@ -1,13 +1,14 @@
 'use strict'
 
 const ShortUrl = use('App/Models/ShortUrl')
+const UrlSetting = use('App/Models/UrlSetting')
 
 class IndexController {
   constructor() {
     this.nuxt = use('Service/Nuxt')
   }
   async store({ request, response }) {
-    const data = request.body
+    let data = request.body
     let errors = {}
     if (!data.original_url.length) errors.special_url = 'URL is Required.'
     if (data.special_url) {
@@ -16,7 +17,7 @@ class IndexController {
         errors.special_url = 'URL alias is not available.'
       }
     }
-    let shorted_id = ShortUrl.short(data)
+    ShortUrl.short(data)
     response.json({ error_fields: errors })
   }
 }
