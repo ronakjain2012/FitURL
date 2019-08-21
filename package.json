@@ -23,8 +23,10 @@
     "@adonisjs/session": "^1.0.19",
     "@adonisjs/shield": "^1.0.4",
     "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/moment": "^1.2.0",
     "@nuxtjs/pwa": "^2.6.0",
     "cross-env": "^5.2.0",
+    "moment": "^2.24.0",
     "mysql": "github:mysqljs/mysql",
     "nuxt": "^2.0.0"
   },
