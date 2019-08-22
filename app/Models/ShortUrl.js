@@ -36,15 +36,17 @@ class ShortUrl extends Model {
     return {
       url_alias_invalid: /[~`!#$ .%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g,
       username_invalid: /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/,
-      email_valid: '',
-      mobile_valid: '',
+      email_valid: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
+      mobile_valid: /^(\+7|7|8)?[\s-]?\(?([0-9]{3})\)?[\s-]?([0-9]{3})[\s-]?([0-9]{2})[\s-]?([0-9]{2}).*$/gm,
       domain_match: /:\/\/(.[^/]+)/,
       alphanumeric_valid: /^[a-z0-9]+$/i,
       number_valid: /^\d+$/,
+      decimal_number: /^[0-9]+\.?[0-9]*$/,
       alphanumeric_underscore_valid: /^[A-Za-z]\w*$/,
       // valid_url: ^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$,
-      password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_\W]).{12,20}$/
+      password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_\W]).{12,20}$/,
       // Minimum ten and maximum 20 characters,one uppercase, lowercase, number, special character
+      special_characters: /[~`!$%\^&+=\[\]';{}|":<>\?]/
     }
   }
 
