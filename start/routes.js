@@ -14,6 +14,6 @@
 */
 
 const Route = use('Route')
-
 Route.post('app/short','IndexController.store')
+Route.post('app/session','SessionController.store')
 Route.any('*', 'NuxtController.render')

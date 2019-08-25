@@ -10,7 +10,6 @@ class IndexController {
     this.nuxt = use('Service/Nuxt')
   }
   async store({ request, response, session }) {
-    console.log(session._sessionId)
     let data = request.body
     let res = await ShortUrl.short(data)
     response.json(res)

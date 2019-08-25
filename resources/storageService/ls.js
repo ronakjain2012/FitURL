@@ -4,16 +4,16 @@
 import security from '~/security/substitution'
 class Ls {
   has(key) {
-    return !localStorage.getItem(key) === null
+    return !(localStorage.getItem(key) === null)
   }
-  get(key){
+  get(key) {
     if (this.canStorage() && this.has(key)) {
       return localStorage.getItem(key)
     } else {
       return null
     }
   }
-  getJson(key){
+  getJson(key) {
     if (this.canStorage() && this.has(key)) {
       return JSON.parse(localStorage.getItem(key))
     } else {
@@ -21,7 +21,7 @@ class Ls {
     }
   }
   getDecrtpted(key) {
-    if (this.has(key)) {
+    if (this.canStorage() && this.has(key)) {
       return JSON.parse(security.decrypt(localStorage.getItem(key)))
     } else {
       return null
@@ -45,21 +45,22 @@ class Ls {
       return this.afterSet(key)
     } else return false
   }
-  clearAll() {localStorage.clear()}
+  clearAll() {
+    localStorage.clear()
+  }
   delete(key) {
     if (this.canStorage() && this.has(key)) {
       localStorage.removeItem(key)
     }
   }
-  beforeSet(value){
+  beforeSet(value) {
     if (value === undefined) return false
     else return true
   }
   afterSet(key) {
     return this.get(key) !== undefined
   }
-  canStorage(){
-    console.log(localStorage ? true : false,'fgfh')
+  canStorage() {
     return !!localStorage ? true : false
   }
   getAll() {

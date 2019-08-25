@@ -26,7 +26,7 @@ export default {
       if (CaesarSet.includes(ctArray[i])) {
         ptArray.push(charSet[CaesarSet.indexOf(ctArray[i])])
       } else {
-        ptArray.push(ptArray[i])
+        ptArray.push(ctArray[i])
       }
     }
     return ptArray.join('')
