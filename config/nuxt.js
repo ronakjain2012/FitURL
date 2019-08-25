@@ -36,6 +36,12 @@ module.exports = {
         href:
           'https://fonts.googleapis.com/css?family=ABeeZee|Anton&display=swap'
       }
+    ],
+    script: [
+      {
+        src: '//js.maxmind.com/js/apis/geoip2/v2.1/geoip2.js',
+        type: 'text/javascript'
+      }
     ]
   },
   /*

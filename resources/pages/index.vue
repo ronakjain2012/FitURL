@@ -1,5 +1,6 @@
 <template>
   <v-layout row wrap justify-center align-center>
+    <SessionTracking></SessionTracking>
     <v-flex xs12 sm12 md12>
       <div class="text-center">
         <logo />
@@ -185,12 +186,16 @@
 <script>
 /* eslint-disable */
 import Logo from '~/components/Logo.vue'
+import SessionTracking from '~/components/SessionTracking.vue'
 import { mapGetters } from 'vuex'
-import * as CONST from '~/constrains.js'
+import repositoryFactory from '@/repository/repositoryFactory'
+
+const shortUrl = repositoryFactory.get('shortUrl')
 export default {
   name: 'index',
   components: {
-    Logo
+    Logo,
+    SessionTracking
   },
   data: function() {
     return {
@@ -225,14 +230,27 @@ export default {
     })
   },
   mounted(){
+    // geoip2.insights((success)=>{
+    //   console.log(success)
+    // },(error)=>{
+    //   console.log(error)
+    // })
+    // this.$store.dispatch('session/fetch_data')
+
   },
   methods:{
     shoutUrl() {
-      this.$axios.post(`${this.api_url}/${CONST.ADD_FIT_URL}`,this.url_options).then((response)=>{
+      shortUrl.add(this.url_options).then((response)=>{
         console.log(response)
       }).catch((err)=>{
         console.log(err)
       })
+
+      // this.$axios.post(`${this.api_url}/${CONST.API_ADD_FIT_URL}`,this.url_options).then((response)=>{
+      //   console.log(response)
+      // }).catch((err)=>{
+      //   console.log(err)
+      // })
     }
   }
 }

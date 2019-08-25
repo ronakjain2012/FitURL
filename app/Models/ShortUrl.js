@@ -1,10 +1,11 @@
+/* eslint-disable no-var */
 /* eslint-disable prefer-const */
 'use strict'
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 const UrlSetting = use('App/Models/UrlSetting')
-const moment = require('moment')
+const moment = require('moment-timezone')
 
 class ShortUrl extends Model {
   static get table() {
@@ -51,8 +52,13 @@ class ShortUrl extends Model {
   }
 
   static async short(data) {
-    let thisModel = await this.createNew(data)
-    return thisModel.short_url
+    var validation = await this.urlValidations(data)
+    if (validation.status) {
+      let thisModel = await this.createNew(data)
+      return thisModel.short_url
+    } else {
+      return validation.errors
+    }
   }
 
   static async createNew(data) {
@@ -94,24 +100,58 @@ class ShortUrl extends Model {
   /**
    * @description Validation Rules for creating url
    * @param {*} data
-   * @returns {status: Bool, data: Object}
+   * @returns {status: Bool, errors: Object}
    */
 
   static async urlValidations(data) {
     let validation = { status: true, data: {} }
-    let thisModel = await this.findBy('original_url', data.original_url)
-    let aliasModel = await ShortUrl.findBy('special_url', data.special_url)
-    let settingModel = await UrlSetting.findBy('url_id', thisModel._id)
-    if(!data.original_url){
-      validation.data.original_url = "URL is Required."
+    let aliasModel = await this.query()
+      .where('special_url', data.special_url)
+      .where('original_url', data.special_url)
+      .getCount()
+    let currentTimezone = data.timezone || 'UTC'
+    moment.tz.setDefault(currentTimezone)
+    let currentDate = moment()
+      .utc()
+      .format('YYYYMMDD')
+    let currentTime = moment()
+      .utc()
+      .format('HHmm')
+    if (!data.original_url) {
+      validation.errors.original_url = 'URL is Required.'
     }
-    if(data.special_url){
-      validation.data.special_url = "URL Alias should not contain special charecters except underscore (_) or hypen (-)"
+    if (data.special_url) {
+      validation.errors.special_url =
+        'URL Alias should not contain special charecters except underscore (_) or hypen (-)'
     }
-    if(data.special_url && !data.special_url.match(this.RegEx.url_alias_invalid)){
-      validation.data.special_url = "URL Alias Invalid"
+    if (
+      data.special_url &&
+      !data.special_url.match(this.RegEx.url_alias_invalid)
+    ) {
+      validation.errors.special_url = 'URL Alias Invalid'
     }
-
+    if (aliasModel) {
+      validation.errors.special_url = 'URL Alias not available'
+    }
+    if (data.expire_date) {
+      data.expire_date = moment(data.expire_date, 'YYYY-MM-DD')
+        .tz('UTC')
+        .format('YYYYMMDD')
+      if (data.expire_date < currentDate) {
+        validation.errors.expire_date = 'Invalid date.'
+      }
+    }
+    if (data.expire_time) {
+      data.expire_time = moment(
+        `1996-03-07 ${data.expire_time}`,
+        'YYYY-MM-DD HH:mm'
+      )
+        .tz('UTC')
+        .format('HHmm')
+      if (data.expire_time < currentTime) {
+        validation.errors.expire_time = 'Invalid date.'
+      }
+    }
     return validation
   }
 }

@@ -1,5 +1,4 @@
-export const API_ADD_FIT_URL = 'short'
-
+/* eslint-disable no-useless-escape */
 export const INVALID_URL_ALIAS = /[~`!#$ .%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g
 export const INVALID_USERNAME = /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/
 export const VALID_EMAIL = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
@@ -13,7 +12,6 @@ export const VALID_PASSWORD = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_\W]).{12,20
 export const VALID_SPECIAL_CHARECTER_ONLY = /[~`!$%\^&+=\[\]';{}|":<>\?]/
 
 export const ALL = {
-  API_ADD_FIT_URL,
   INVALID_URL_ALIAS,
   INVALID_USERNAME,
   VALID_EMAIL,
