@@ -5,13 +5,14 @@
 <script>
 /* eslint-disable */
 import { mapGetters, mapActions } from 'vuex'
-import { async } from 'q'
+import storageService from '~/storageService/ls'
 
 export default {
   mounted() {
     /**
      * Get Driver and call respective api
      */
+    console.log(storageService.has('sdf'))
     switch (this.driver) {
       case 'maxmind':
         geoip2.insights(
