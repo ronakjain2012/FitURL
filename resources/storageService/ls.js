@@ -53,5 +53,8 @@ export default {
   },
   canStorage: () => {
     return !!window.localStorage
+  },
+  getAll: () => {
+    return JSON.parse(JSON.stringify(window.localStorage.valueOf()))
   }
 }

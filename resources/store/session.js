@@ -1,3 +1,4 @@
+import security from '@/security/substitution'
 export const state = () => {
   return {
     session_id: null,
