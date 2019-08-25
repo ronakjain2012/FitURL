@@ -12,12 +12,13 @@ export default {
     /**
      * Get Driver and call respective api
      */
-    console.log(storageService.has('sdf'))
+    this.$store.dispatch('session/loadSession')
     switch (this.driver) {
       case 'maxmind':
         geoip2.insights(
           async (success) => {
             await this.$store.dispatch('session/setDriverSuccess', success)
+            await this.$store.dispatch('session/setUserAgent',navigator.userAgent)
             await this.$store.dispatch('session/driverAttemptIncrement')
             await this.$store.dispatch('session/setData')
           },

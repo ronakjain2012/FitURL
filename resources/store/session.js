@@ -45,6 +45,9 @@ export const mutations = {
   setDriverAttemptsIncrement(state) {
     state.driver.attepmts++
   },
+  setUserAgent(state, agent) {
+    state.agent = agent
+  },
   /* Setting Data of Session */
   maxmind(state) {
     state.city = state.driver.raw_data.city.names.en
@@ -60,7 +63,16 @@ export const mutations = {
     state.ips = state.driver.raw_data.traits.isp
     state.org = state.driver.raw_data.traits.organization
     state.service_type = state.driver.raw_data.traits.user_type
-    state.business_website = state.driver.raw_data.traits.user_type
+    state.business_website = null
+  },
+  setSession(state, sessionData) {
+    state.session_id = sessionData.session_id
+    state.session = sessionData
+    storageService.setEncrypted('session', sessionData)
+  },
+  loadSession(state) {
+    state.session = storageService.getDecrtpted('session')
+    if (state.session) state.session_id = state.session.session_id || null
   }
 }
 
@@ -91,18 +103,23 @@ export const actions = {
   setDriverFail({ commit }, fail) {
     commit('setDriverFail', fail)
   },
+  setUserAgent({ commit }, agent) {
+    commit('setUserAgent', agent)
+  },
   driverAttemptIncrement({ commit }) {
     commit('setDriverAttemptsIncrement')
   },
   addSession({ commit, dispatch, state }) {
     const reqData = {
+      session_data: state.session,
+      session_id: state.session_id,
       region: state.continent,
       country: state.country,
-      country_code: state.city,
-      state: state.city,
+      country_code: state.iso_code,
+      state: state.state,
       city: state.city,
       zip_code: state.postal,
-      iso_code: state.postal,
+      iso_code: state.iso_code,
       lat: state.location.lat,
       long: state.location.long,
       postal_code: state.postal,
@@ -110,14 +127,24 @@ export const actions = {
       metro_code: state.postal,
       ip: state.ip,
       visit_count: 1,
-      agent: state.city,
+      agent: state.agent,
       isp: state.ips,
       org: state.org,
       business_name: state.org,
       business_website: null,
-      timzone: state.time_zone,
-      raw_data: state.driver.raw_data
+      timezone: state.time_zone,
+      raw_data: JSON.stringify(state.driver.raw_data)
     }
-    sessios.add(reqData)
+    sessios
+      .add(reqData)
+      .then((response) => {
+        commit('setSession', response.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  },
+  loadSession({ commit }) {
+    commit('loadSession')
   }
 }

@@ -2,6 +2,7 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
+const moment = require('moment-timezone')
 
 class Session extends Model {
   static get table() {
@@ -17,24 +18,35 @@ class Session extends Model {
     return 'YYYY-MM-DD HH:mm:ss'
   }
 
-  static async addOrUpdate(session) {
-    let thisModel = this.query()
+  static async addAndUpdate(session) {
+    let thisModel = await this.query()
       .where('deleted_at', null)
-      .where('id', session.session_id)
+      .where('session', session.session_id)
       .first()
-    if (thisModel) {
+    if (
+      thisModel &&
+      session.session_data &&
+      session.session_data.expire_at >=
+        moment()
+          .utc()
+          .format('X')
+    ) {
       thisModel.visit_count++
+      thisModel.time_end = moment(
+        thisModel.updated_at || thisModel.created_at,
+        'YYYY-MM-DD HH:mm:ss'
+      ).format('YYYY-MM-DD HH:mm:ss')
+
       await thisModel.save()
     } else {
       thisModel = await this.create(session)
     }
     return {
-      session_id: thisModel.id,
-      genrated_at: this.$moment(
-        thisModel.updated_at || thisModel.created_at,
-        'YYYY-MM-DD HH:mm:ss'
-      ).format('X'),
-      expire_at: this.$moment(
+      session_id: thisModel.session,
+      genrated_at: moment(thisModel.created_at, 'YYYY-MM-DD HH:mm:ss').format(
+        'X'
+      ),
+      expire_at: moment(
         thisModel.updated_at || thisModel.created_at,
         'YYYY-MM-DD HH:mm:ss'
       )
@@ -44,30 +56,31 @@ class Session extends Model {
   }
 
   static async create(session) {
-      let thisModel = new this()
-      thisModel.session = session.city
-      thisModel.region = session.city
-      thisModel.country = session.city
-      thisModel.country_code = session.city
-      thisModel.state = session.city
-      thisModel.city = session.city
-      thisModel.zip_code = session.city
-      thisModel.iso_code = session.city
-      thisModel.lat = session.city
-      thisModel.long = session.city
-      thisModel.postal_code = session.city
-      thisModel.area_code = session.city
-      thisModel.metro_code = session.city
-      thisModel.ip = session.city
-      thisModel.visit_count = 1
-      thisModel.agent = session.city
-      thisModel.isp = session.city
-      thisModel.org = session.city
-      thisModel.business_name = session.city
-      thisModel.business_website = session.city
-      thisModel.raw_data = session.city
-      await thisModel.save()
-      return thisModel
+    let thisModel = new this()
+    thisModel.session = session.session_id
+    thisModel.region = session.region || null
+    thisModel.country = session.country || null
+    thisModel.country_code = session.country_code || null
+    thisModel.state = session.state || null
+    thisModel.city = session.city || null
+    thisModel.zip_code = session.zip_code || null
+    thisModel.iso_code = session.iso_code || null
+    thisModel.lat = session.lat || null
+    thisModel.long = session.long || null
+    thisModel.postal_code = session.postal_code || null
+    thisModel.area_code = session.area_code || null
+    thisModel.metro_code = session.metro_code || null
+    thisModel.ip = session.ip || null
+    thisModel.visit_count = 1
+    thisModel.agent = session.agent || null
+    thisModel.isp = session.isp || null
+    thisModel.org = session.org || null
+    thisModel.business_name = session.business_name || null
+    thisModel.business_website = session.business_website || null
+    thisModel.timezone = session.timezone || 'UTC'
+    thisModel.raw_data = session.raw_data || null
+    await thisModel.save()
+    return thisModel
   }
 }
 
