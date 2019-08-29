@@ -53,10 +53,7 @@ export default {
 }
 </script>
 <style scoped>
-.main-font {
+* {
   font-family: 'ABeeZee', sans-serif;
-}
-.secondary-font {
-  font-family: 'Anton', sans-serif;
 }
 </style>

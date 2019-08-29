@@ -12,7 +12,6 @@
           <v-container fluid>
             <v-row>
               <v-col cols="12" md="10">
-                {{api_url}}
                 <v-text-field
                   label="Short URL"
                   autofocus
@@ -23,6 +22,7 @@
                   outlined
                   prepend-inner-icon="link"
                   v-model="url_options.original_url"
+                  :error-messages="errors.original_url"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" md="2" class="text-center">
@@ -32,7 +32,11 @@
                 </div>
               </v-col>
               <v-col cols="12" sm="6" md="3" no-gutters>
-                <v-text-field label="Url Alias (web-meeting)" v-model="url_options.special_url" :error-messages="null"></v-text-field>
+                <v-text-field
+                  label="Url Alias (web-meeting)"
+                  v-model="url_options.special_url"
+                  :error-messages="errors.special_url"
+                ></v-text-field>
               </v-col>
             </v-row>
             <v-row v-if="showAdvance" class="main-font">
@@ -49,13 +53,25 @@
                               <p>This feature is for enterprices and advance users who wants to track the link activity and want to get update for their links.</p>
                             </v-col>
                             <v-col cols="4">
-                              <v-text-field v-model="url_options.user_name" placeholder="Name"></v-text-field>
+                              <v-text-field
+                                v-model="url_options.user_name"
+                                :error-messages="errors.user_name"
+                                placeholder="Name"
+                              ></v-text-field>
                             </v-col>
                             <v-col cols="4">
-                              <v-text-field v-model="url_options.user_email" placeholder="Email"></v-text-field>
+                              <v-text-field
+                                v-model="url_options.user_email"
+                                :error-messages="errors.user_email"
+                                placeholder="Email"
+                              ></v-text-field>
                             </v-col>
                             <v-col cols="4">
-                              <v-text-field v-model="url_options.user_mobile" placeholder="Mobile"></v-text-field>
+                              <v-text-field
+                                v-model="url_options.user_mobile"
+                                :error-messages="errors.user_mobile"
+                                placeholder="Mobile"
+                              ></v-text-field>
                             </v-col>
                           </v-row>
                         </v-expansion-panel-content>
@@ -71,6 +87,7 @@
                             <v-col cols="12">
                               <v-checkbox
                                 v-model="url_options.display_ads"
+                                :error-messages="errors.display_ads"
                                 label="Show Ads on redirect"
                               ></v-checkbox>
                             </v-col>
@@ -90,6 +107,7 @@
                             <v-col cols="12">
                               <v-checkbox
                                 v-model="url_options.analytic_report"
+                                :error-messages="errors.analytic_report"
                                 label="Show Ads on redirect"
                               ></v-checkbox>
                             </v-col>
@@ -130,6 +148,7 @@
                                     prepend-icon="event"
                                     v-on="on"
                                     clearable
+                                    :error-messages="errors.expire_date"
                                   ></v-text-field>
                                 </template>
                                 <v-date-picker
@@ -159,6 +178,7 @@
                                     readonly
                                     v-on="on"
                                     clearable
+                                    :error-messages="errors.expire_time"
                                   ></v-text-field>
                                 </template>
                                 <v-time-picker
@@ -187,7 +207,7 @@
 /* eslint-disable */
 import Logo from '~/components/Logo.vue'
 import SessionTracking from '~/components/SessionTracking.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import repositoryFactory from '@/repository/repositoryFactory'
 
 const shortUrl = repositoryFactory.get('shortUrl')
@@ -207,6 +227,7 @@ export default {
           return pattern.test(value) || 'Invalid URL.'
         }
       ],
+      errors: {},
       url_options: {
         special_url: null,
         short_url: null,
@@ -217,7 +238,7 @@ export default {
         user_email: null,
         user_mobile: null,
         display_ads: 1,
-        analytic_report: 0,
+        analytic_report: 0
       },
       datepicker: false,
       timepicker: false,
@@ -229,28 +250,32 @@ export default {
       api_url: 'api/ApiUrl'
     })
   },
-  mounted(){
-    // geoip2.insights((success)=>{
-    //   console.log(success)
-    // },(error)=>{
-    //   console.log(error)
-    // })
-    // this.$store.dispatch('session/fetch_data')
-
-  },
-  methods:{
+  mounted() {},
+  methods: {
+    ...mapActions({
+      showSuccess: 'ui/showSuccessSnackbar',
+      showError: 'ui/showErrorSnackbar'
+    }),
+    resetMainFields() {
+      this.url_options.special_url = null
+      this.url_options.short_url = null
+      this.url_options.original_url = null
+      this.url_options.expire_date = null
+      this.url_options.expire_time = null
+    },
     shoutUrl() {
-      shortUrl.add(this.url_options).then((response)=>{
-        console.log(response)
-      }).catch((err)=>{
-        console.log(err)
-      })
-
-      // this.$axios.post(`${this.api_url}/${CONST.API_ADD_FIT_URL}`,this.url_options).then((response)=>{
-      //   console.log(response)
-      // }).catch((err)=>{
-      //   console.log(err)
-      // })
+      let that = this
+      shortUrl
+        .add(this.url_options)
+        .then((response) => {
+          console.log(response.data)
+          that.showSuccess(response.data.message)
+          this.resetMainFields()
+        })
+        .catch((err) => {
+          this.errors = err.response.data.errors
+          console.log(err)
+        })
     }
   }
 }
@@ -269,7 +294,9 @@ export default {
   font-family: 'Anton', sans-serif;
 }
 
-div[class^='col'], div[class*='col'],.v-input {
+div[class^='col'],
+div[class*='col'],
+.v-input {
   padding: 0px;
   padding-top: 0px;
 }

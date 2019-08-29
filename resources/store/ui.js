@@ -5,7 +5,7 @@ export const state = () => {
       color: '',
       mode: 'vertical',
       text: 'Testing',
-      timeout: 5000,
+      timeout: 8000,
       x: 'right',
       y: 'top',
       multiline: true
@@ -29,6 +29,17 @@ export const mutations = {
   },
   SetHideSnackbar(state) {
     state.snackbar.show = false
+    state.snackbar.color = ''
+  },
+  SetShowSuccessSnackbar(state, text) {
+    state.snackbar.color = 'green darken-4'
+    state.snackbar.text = text
+    state.snackbar.show = true
+  },
+  SetShowErrorSnackbar(state, text) {
+    state.snackbar.color = 'deep-orange darken-4'
+    state.snackbar.text = text
+    state.snackbar.show = true
   },
   SetShowLoader(state) {
     state.loader = true
@@ -74,7 +85,7 @@ export const getters = {
 }
 
 export const actions = {
-  showSnackbar({ commit }, { text }) {
+  showSnackbar({ commit }, text) {
     commit('SetShowSnackbar', text)
   },
   hideSnackbar({ commit }) {
@@ -94,5 +105,11 @@ export const actions = {
   },
   async dialogAction({ commit }, status) {
     await commit('SetDialogAction', status)
+  },
+  showSuccessSnackbar({ commit }, text) {
+    commit('SetShowSuccessSnackbar', text)
+  },
+  showErrorSnackbar({ commit }, text) {
+    commit('SetShowErrorSnackbar', text)
   }
 }

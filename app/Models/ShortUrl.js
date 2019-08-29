@@ -44,7 +44,7 @@ class ShortUrl extends Model {
       number_valid: /^\d+$/,
       decimal_number: /^[0-9]+\.?[0-9]*$/,
       alphanumeric_underscore_valid: /^[A-Za-z]\w*$/,
-      // valid_url: ^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$,
+      valid_url:  /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/,
       password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_\W]).{12,20}$/,
       // Minimum ten and maximum 20 characters,one uppercase, lowercase, number, special character
       special_characters: /[~`!$%\^&+=\[\]';{}|":<>\?]/
@@ -53,18 +53,19 @@ class ShortUrl extends Model {
 
   static async short(data) {
     var validation = await this.urlValidations(data)
-    if (validation.status) {
+    if (validation.status === true) {
       let thisModel = await this.createNew(data)
-      return thisModel.short_url
+      return { status: true, data: thisModel }
     } else {
-      return validation.errors
+      return validation
     }
   }
 
   static async createNew(data) {
     let thisModel = new this()
     thisModel.original_url = data.original_url
-    thisModel.special_url = data.special_url
+    thisModel.special_url =
+      data.special_url && data.special_url.length ? data.special_url : null
     thisModel.domain = data.original_url.match(this.domainRegEx)[1]
     await thisModel.save()
     thisModel.short_url = this.encodedUrl(thisModel._id)
@@ -104,10 +105,13 @@ class ShortUrl extends Model {
    */
 
   static async urlValidations(data) {
-    let validation = { status: true, data: {} }
-    let aliasModel = await this.query()
-      .where('special_url', data.special_url)
-      .where('original_url', data.special_url)
+    let validation = { status: true, errors: {} }
+    let aliasModel = await this.query().select('_id')
+      .where(function() {
+        this.orWhere('special_url', data.special_url)
+        this.orWhere('original_url', data.special_url)
+      })
+      .whereNotNull('special_url')
       .getCount()
     let currentTimezone = data.timezone || 'UTC'
     moment.tz.setDefault(currentTimezone)
@@ -120,18 +124,27 @@ class ShortUrl extends Model {
     if (!data.original_url) {
       validation.errors.original_url = 'URL is Required.'
     }
-    if (data.special_url) {
+
+    if(!data.original_url.match(this.RegEx.valid_url)){
+      validation.errors.original_url = 'Invalid URL.'
+    }
+
+    if (
+      data.special_url &&
+      data.special_url.length &&
+      data.special_url.match(this.RegEx.url_alias_invalid)
+    ) {
       validation.errors.special_url =
-        'URL Alias should not contain special charecters except underscore (_) or hypen (-)'
+        'URL Alias should not contain special charecters except underscore (_) or hypen (-).'
     }
     if (
       data.special_url &&
-      !data.special_url.match(this.RegEx.url_alias_invalid)
+      data.special_url.match(this.RegEx.url_alias_invalid)
     ) {
-      validation.errors.special_url = 'URL Alias Invalid'
+      validation.errors.special_url = 'URL Alias Invalid.'
     }
     if (aliasModel) {
-      validation.errors.special_url = 'URL Alias not available'
+      validation.errors.special_url = 'URL Alias not available.'
     }
     if (data.expire_date) {
       data.expire_date = moment(data.expire_date, 'YYYY-MM-DD')
@@ -152,6 +165,11 @@ class ShortUrl extends Model {
         validation.errors.expire_time = 'Invalid date.'
       }
     }
+
+    if (Object.keys(validation.errors).length) {
+      validation.status = false
+    }
+
     return validation
   }
 }
