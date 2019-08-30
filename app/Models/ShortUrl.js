@@ -5,6 +5,8 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 const UrlSetting = use('App/Models/UrlSetting')
+const Session = use('App/Models/Session')
+
 const moment = require('moment-timezone')
 
 class ShortUrl extends Model {
@@ -44,7 +46,7 @@ class ShortUrl extends Model {
       number_valid: /^\d+$/,
       decimal_number: /^[0-9]+\.?[0-9]*$/,
       alphanumeric_underscore_valid: /^[A-Za-z]\w*$/,
-      valid_url:  /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/,
+      valid_url: /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/,
       password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_\W]).{12,20}$/,
       // Minimum ten and maximum 20 characters,one uppercase, lowercase, number, special character
       special_characters: /[~`!$%\^&+=\[\]';{}|":<>\?]/
@@ -62,8 +64,15 @@ class ShortUrl extends Model {
   }
 
   static async createNew(data) {
+    let sessionModel
+    let sessionId = null
+    sessionModel = await Session.query('session', data.session_id).first()
+    if (sessionModel) {
+      sessionId = sessionModel.id
+    } else sessionId = null
     let thisModel = new this()
     thisModel.original_url = data.original_url
+    thisModel.session_id = sessionId
     thisModel.special_url =
       data.special_url && data.special_url.length ? data.special_url : null
     thisModel.domain = data.original_url.match(this.domainRegEx)[1]
@@ -72,6 +81,21 @@ class ShortUrl extends Model {
     thisModel.partition_index_number = thisModel.short_url.length
     thisModel.partition_index = thisModel.short_url.charAt(0)
     await thisModel.save()
+    let urlSettingModel = new UrlSetting()
+    urlSettingModel.url_id = thisModel._id
+    urlSettingModel.session_id = sessionModel.id
+    urlSettingModel.timezone = sessionModel.timezone
+    urlSettingModel.user_name = data.user_name
+    urlSettingModel.user_email = data.user_email
+    urlSettingModel.user_mobile = data.user_mobile
+    urlSettingModel.user_country = sessionModel.country_code
+    urlSettingModel.user_state = sessionModel.state
+    urlSettingModel.user_city = sessionModel.city
+    urlSettingModel.show_ads =  data.display_ads
+    urlSettingModel.record_stats = data.analytic_report
+    urlSettingModel.expire_date = data.expire_date
+    urlSettingModel.expire_time = data.expire_time
+    await urlSettingModel.save()
     this.decodeUrl(thisModel.short_url)
     return thisModel
   }
@@ -106,7 +130,8 @@ class ShortUrl extends Model {
 
   static async urlValidations(data) {
     let validation = { status: true, errors: {} }
-    let aliasModel = await this.query().select('_id')
+    let aliasModel = await this.query()
+      .select('_id')
       .where(function() {
         this.orWhere('special_url', data.special_url)
         this.orWhere('original_url', data.special_url)
@@ -125,7 +150,7 @@ class ShortUrl extends Model {
       validation.errors.original_url = 'URL is Required.'
     }
 
-    if(!data.original_url.match(this.RegEx.valid_url)){
+    if (!data.original_url.match(this.RegEx.valid_url)) {
       validation.errors.original_url = 'Invalid URL.'
     }
 

@@ -3,20 +3,20 @@
     <v-app-bar color="deep-purple accent-4 main-font" absolute>
       <v-img class="logo-style" src="favicon.ico" max-height="45" max-width="45" />
       <v-toolbar-title class="white--text main-font">Fit URL</v-toolbar-title>
-
       <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and">
+        <v-btn text color="white" to="/" class="margin-right-15" nuxt>Home</v-btn>
 
-      <v-btn rounded class="margin-right-15">Home</v-btn>
+        <v-btn text color="white" to="/fit/reports" class="margin-right-15" nuxt>Reports</v-btn>
 
-      <v-btn rounded class="margin-right-15">Reports</v-btn>
+        <v-btn text color="white" to="/fit/enterprise" class="margin-right-15" nuxt>Enterprise Use</v-btn>
 
-      <v-btn rounded class="margin-right-15">Enterprise Use</v-btn>
+        <v-btn text color="white" to="/fit/apis" class="margin-right-15" nuxt>APIs</v-btn>
 
-      <v-btn rounded class="margin-right-15">APIs</v-btn>
+        <v-btn text color="white" to="/fit/examples" class="margin-right-15" nuxt>Example</v-btn>
 
-      <v-btn rounded class="margin-right-15">Example</v-btn>
-
-      <v-btn rounded class="margin-right-15">Contact Us</v-btn>
+        <v-btn text color="white" to="/fit/contact" class="margin-right-15" nuxt>Contact Us</v-btn>
+      </v-toolbar-items>
 
       <!-- <v-menu left bottom class="main-font">
         <template v-slot:activator="{ on }">
@@ -33,7 +33,7 @@
     </v-app-bar>
     <v-content>
       <v-container class="padding-app">
-        <nuxt />
+          <nuxt />
       </v-container>
       <!-- APP UI elements -->
       <ProcessLoader></ProcessLoader>
@@ -99,7 +99,7 @@ export default {
         title: 'FitURL'
       }
     }
-  },
+  }
 }
 </script>
 <style scoped>

@@ -79,6 +79,9 @@ export const mutations = {
 export const getters = {
   getDriver(state) {
     return state.driver.current_driver
+  },
+  getSession(state) {
+    return state.session_id
   }
 }
 

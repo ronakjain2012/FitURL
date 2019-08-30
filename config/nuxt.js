@@ -72,7 +72,17 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    '@nuxtjs/moment'
+    '@nuxtjs/moment',
+    [
+      '@nuxtjs/google-analytics',
+      {
+        id: process.env.GA_ID
+      }
+    ],
+    [
+      '@nuxtjs/google-tag-manager',
+      { id: process.env.GTM_ID, pageTracking: false }
+    ]
   ],
   /*
    ** Axios module configuration
@@ -108,6 +118,20 @@ module.exports = {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
-    // transpile: [/vue-awesome/]
+  },
+  debug: {
+    enabled: true,
+    sendHitTask: true
+  },
+  pageTransition: {
+    name: 'page',
+    mode: 'out-in',
+    beforeEnter(el) {
+      console.log('Before enter...')
+    }
+  },
+  layoutTransition: {
+    name: 'layout',
+    mode: 'out-in'
   }
 }

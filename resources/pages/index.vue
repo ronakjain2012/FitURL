@@ -208,7 +208,8 @@
 import Logo from '~/components/Logo.vue'
 import SessionTracking from '~/components/SessionTracking.vue'
 import { mapGetters, mapActions } from 'vuex'
-import repositoryFactory from '@/repository/repositoryFactory'
+import repositoryFactory from '~/repository/repositoryFactory'
+import storageService from '~/storageService/ls'
 
 const shortUrl = repositoryFactory.get('shortUrl')
 export default {
@@ -247,10 +248,24 @@ export default {
   },
   computed: {
     ...mapGetters({
-      api_url: 'api/ApiUrl'
+      api_url: 'api/ApiUrl',
+      session_id: 'session/getSession'
     })
   },
-  mounted() {},
+  mounted() {
+    /**
+     * Set User data from ls
+     */
+    if (storageService.has('n')) {
+      this.url_options.user_name = storageService.getDecrtpted('n')
+    }
+    if (storageService.has('m')) {
+      this.url_options.user_mobile = storageService.getDecrtpted('m')
+    }
+    if (storageService.has('e')) {
+      this.url_options.user_email = storageService.getDecrtpted('e')
+    }
+  },
   methods: {
     ...mapActions({
       showSuccess: 'ui/showSuccessSnackbar',
@@ -265,12 +280,24 @@ export default {
     },
     shoutUrl() {
       let that = this
+      that.url_options.session_id = that.session_id
       shortUrl
-        .add(this.url_options)
+        .add(that.url_options)
         .then((response) => {
-          console.log(response.data)
           that.showSuccess(response.data.message)
-          this.resetMainFields()
+          /**
+           * Manage Some Local Data related to user
+           */
+          if (that.url_options.user_name) {
+            storageService.setEncrypted('n', that.url_options.user_name)
+          }
+          if (that.url_options.user_mobile) {
+            storageService.setEncrypted('m', that.url_options.user_mobile)
+          }
+          if (that.url_options.user_email) {
+            storageService.setEncrypted('e', that.url_options.user_email)
+          }
+          that.resetMainFields()
         })
         .catch((err) => {
           this.errors = err.response.data.errors
