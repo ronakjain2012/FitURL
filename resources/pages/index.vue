@@ -11,7 +11,7 @@
         <v-card-text>
           <v-container fluid>
             <v-row v-if="!ui.showLinks">
-              <v-col cols="12" md="10">
+              <v-col cols="12" md="10" sm="9">
                 <v-text-field
                   label="Short URL"
                   autofocus
@@ -24,19 +24,19 @@
                   v-model="url_options.original_url"
                   :error-messages="errors.original_url"
                 ></v-text-field>
-              </v-col>
-              <v-col cols="12" md="2" class="text-center">
-                <div class="text-center">
-                  <v-btn large text rounded @click="showAdvance = !showAdvance">Advance</v-btn>
-                  <v-btn large color="primary" rounded @click="shoutUrl">Short</v-btn>
-                </div>
-              </v-col>
-              <v-col cols="12" sm="6" md="3" no-gutters>
+                <v-col cols="12" sm="6" md="3" no-gutters>
                 <v-text-field
                   label="Url Alias (web-meeting)"
                   v-model="url_options.special_url"
                   :error-messages="errors.special_url"
                 ></v-text-field>
+              </v-col>
+              </v-col>
+              <v-col cols="12" md="2" sm="3" class="text-center">
+                <div class="text-center">
+                  <v-btn large text rounded @click="showAdvance = !showAdvance">Advance</v-btn>
+                  <v-btn large color="primary" rounded @click="shoutUrl">Short</v-btn>
+                </div>
               </v-col>
             </v-row>
             <v-row v-if="showAdvance && !ui.showLinks" class="main-font">
