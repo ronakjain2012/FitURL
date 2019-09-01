@@ -125,10 +125,7 @@ module.exports = {
   },
   pageTransition: {
     name: 'page',
-    mode: 'out-in',
-    beforeEnter(el) {
-      console.log('Before enter...')
-    }
+    mode: 'out-in'
   },
   layoutTransition: {
     name: 'layout',

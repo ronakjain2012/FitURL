@@ -41,7 +41,7 @@
       <Dialog></Dialog>
     </v-content>
     <v-footer padless fixed>
-      <v-bottom-navigation color="deep-purple accent-4">
+      <v-bottom-navigation color="deep-purple accent-4" class="hidden-lg-and-up">
         <v-btn>
           <span class="main-font">Home</span>
           <v-icon>beach_access</v-icon>

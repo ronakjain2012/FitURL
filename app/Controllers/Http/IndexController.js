@@ -2,6 +2,7 @@
 'use strict'
 
 const ShortUrl = use('App/Models/ShortUrl')
+const NotificationService = use('App/Utilities/NotificationService')
 const Env = use('Env')
 
 /**
@@ -13,7 +14,7 @@ class IndexController {
   constructor() {
     this.nuxt = use('Service/Nuxt')
   }
-  getAvalilableDomains() {
+  getAvailableDomains() {
     if (Env.get('NODE_ENV') === 'development') {
       return [Env.get('APP_URL')]
     }
@@ -25,8 +26,11 @@ class IndexController {
     let res = await ShortUrl.short(data)
     if (res.status === true) {
       let urls = []
-      for (let domain of this.getAvalilableDomains()) {
-        urls.push(`${domain}/${res.data.special_url || res.data.short_url}`)
+      for (let domain of this.getAvailableDomains()) {
+        urls.push({
+          original_url: data.original_url,
+          short_url: `${domain}/${res.data.special_url || res.data.short_url}`
+        })
       }
       res.message = `Wohh! fat to fit is ready`
       res.data = {

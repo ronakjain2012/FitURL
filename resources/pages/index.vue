@@ -10,7 +10,7 @@
       <v-card>
         <v-card-text>
           <v-container fluid>
-            <v-row>
+            <v-row v-if="!ui.showLinks">
               <v-col cols="12" md="10">
                 <v-text-field
                   label="Short URL"
@@ -39,7 +39,7 @@
                 ></v-text-field>
               </v-col>
             </v-row>
-            <v-row v-if="showAdvance" class="main-font">
+            <v-row v-if="showAdvance && !ui.showLinks" class="main-font">
               <v-flex md12 sm12>
                 <v-card flat>
                   <v-card-text>
@@ -196,6 +196,21 @@
                 </v-card>
               </v-flex>
             </v-row>
+            <v-row v-if="ui.showLinks">
+              <v-col cols="md12" v-if="haveLinks">
+                <v-btn @click="ui.showLinks = false" text icon> <v-icon>keyboard_arrow_left</v-icon> </v-btn>
+                <v-card
+                  :flat="!showLinkInBox"
+                  v-for="(item,index) of ui.links"
+                  :key="index"
+                  style="margin-bottom: 10px;"
+                >
+                  <v-card-title>{{item.short_url}}                    
+                    <CopyToClipboard :color="'purple'" :id="index" :textToCopy="item.short_url"/> </v-card-title>
+                  <v-card-text>{{item.original_url}} </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
           </v-container>
         </v-card-text>
       </v-card>
@@ -207,6 +222,8 @@
 /* eslint-disable */
 import Logo from '~/components/Logo.vue'
 import SessionTracking from '~/components/SessionTracking.vue'
+import CopyToClipboard from '~/components/CopyToClipboard.vue'
+
 import { mapGetters, mapActions } from 'vuex'
 import repositoryFactory from '~/repository/repositoryFactory'
 import storageService from '~/storageService/ls'
@@ -216,7 +233,8 @@ export default {
   name: 'index',
   components: {
     Logo,
-    SessionTracking
+    SessionTracking,
+    CopyToClipboard
   },
   data: function() {
     return {
@@ -243,14 +261,24 @@ export default {
       },
       datepicker: false,
       timepicker: false,
-      showAdvance: false
+      showAdvance: false,
+      ui: {
+        showLinks: false,
+        links: []
+      }
     }
   },
   computed: {
     ...mapGetters({
       api_url: 'api/ApiUrl',
       session_id: 'session/getSession'
-    })
+    }),
+    showLinkInBox() {
+      return this.ui.links.length > 1
+    },
+    haveLinks() {
+      return this.ui.links.length > 0
+    }
   },
   mounted() {
     /**
@@ -288,6 +316,14 @@ export default {
           /**
            * Manage Some Local Data related to user
            */
+          if (
+            response.data.data != undefined &&
+            response.data.data.urls != undefined
+          ) {
+            response.data.data.urls.forEach((element) => {
+              that.ui.links.push(element)
+            })
+          }
           if (that.url_options.user_name) {
             storageService.setEncrypted('n', that.url_options.user_name)
           }
@@ -297,6 +333,7 @@ export default {
           if (that.url_options.user_email) {
             storageService.setEncrypted('e', that.url_options.user_email)
           }
+          that.ui.showLinks = true
           that.resetMainFields()
         })
         .catch((err) => {
