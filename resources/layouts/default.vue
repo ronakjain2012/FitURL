@@ -4,36 +4,49 @@
       <v-img class="logo-style" src="favicon.ico" max-height="45" max-width="45" />
       <v-toolbar-title class="white--text main-font">Fit URL</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and">
+      <v-toolbar-items class="d-none d-lg-block">
         <v-btn text color="white" to="/" class="margin-right-15" nuxt>Home</v-btn>
-
-        <v-btn text color="white" to="/fit/reports" class="margin-right-15" nuxt>Reports</v-btn>
-
-        <v-btn text color="white" to="/fit/enterprise" class="margin-right-15" nuxt>Enterprise Use</v-btn>
-
         <v-btn text color="white" to="/fit/apis" class="margin-right-15" nuxt>APIs</v-btn>
-
-        <v-btn text color="white" to="/fit/examples" class="margin-right-15" nuxt>Example</v-btn>
-
-        <v-btn text color="white" to="/fit/contact" class="margin-right-15" nuxt>Contact Us</v-btn>
+        <v-btn text color="white" to="/fit/reports" class="margin-right-15" nuxt>Reports</v-btn>
+        <v-btn text color="white" to="/fit/contact" class="margin-right-15" nuxt>Helping Hand</v-btn>
       </v-toolbar-items>
-
-      <!-- <v-menu left bottom class="main-font">
+      <v-menu left bottom class="main-font">
         <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on">
+          <v-btn icon v-on="on" class="d-none d-lg-block">
             <v-icon class="white--text">mdi-dots-vertical</v-icon>
           </v-btn>
         </template>
-        <v-list>
-          <v-list-item>
-            <v-list-item-title>Option</v-list-item-title>
+        <v-list subheader>
+          <v-list-item link>
+            <v-list-item-icon>
+              <v-icon>attachment</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Terms & Conditions</v-list-item-title>
+          </v-list-item>
+          <v-list-item link>
+            <v-list-item-icon>
+              <v-icon>ring_volume</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Contact Us</v-list-item-title>
+          </v-list-item>
+          <v-list-item link>
+            <v-list-item-icon>
+              <v-icon>bug_report</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Report a bug</v-list-item-title>
+          </v-list-item>
+          <v-list-item link>
+            <v-list-item-icon>
+              <v-icon>business</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>About</v-list-item-title>
           </v-list-item>
         </v-list>
-      </v-menu>-->
+      </v-menu>
     </v-app-bar>
     <v-content>
       <v-container class="padding-app">
-          <nuxt />
+        <nuxt />
       </v-container>
       <!-- APP UI elements -->
       <ProcessLoader></ProcessLoader>
@@ -46,35 +59,47 @@
           <span class="main-font">Home</span>
           <v-icon>beach_access</v-icon>
         </v-btn>
-
-        <v-btn>
-          <span class="main-font">Reports</span>
-          <v-icon>archive</v-icon>
-        </v-btn>
-
         <v-btn>
           <span class="main-font">APIs</span>
           <v-icon>repeat</v-icon>
         </v-btn>
-
         <v-btn>
-          <span class="main-font">Example</span>
-          <v-icon>pages</v-icon>
+          <span class="main-font">Helping Hand</span>
+          <v-icon>sentiment_very_satisfied</v-icon>
         </v-btn>
-
-        <v-btn>
-          <span class="main-font">Enterprise Use</span>
-          <v-icon>business_center</v-icon>
-        </v-btn>
-
-        <v-btn>
-          <span class="main-font">Terms of use</span>
-          <v-icon>outlined_flag</v-icon>
-        </v-btn>
-        <v-btn>
-          <span class="main-font">Contact Us</span>
-          <v-icon>ring_volume</v-icon>
-        </v-btn>
+        <v-menu class="main-font">
+          <template v-slot:activator="{ on }">
+            <v-btn icon v-on="on">
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+          </template>
+          <v-list subheader>
+            <v-list-item link>
+              <v-list-item-icon>
+                <v-icon>attachment</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Terms & Conditions</v-list-item-title>
+            </v-list-item>
+            <v-list-item link>
+              <v-list-item-icon>
+                <v-icon>ring_volume</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Contact Us</v-list-item-title>
+            </v-list-item>
+            <v-list-item link>
+              <v-list-item-icon>
+                <v-icon>bug_report</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Report a bug</v-list-item-title>
+            </v-list-item>
+            <v-list-item link>
+              <v-list-item-icon>
+                <v-icon>business</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>About</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-bottom-navigation>
     </v-footer>
   </v-app>

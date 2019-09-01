@@ -15,18 +15,22 @@ export default {
     this.$store.dispatch('session/loadSession')
     switch (this.driver) {
       case 'maxmind':
-        geoip2.insights(
-          async (success) => {
-            await this.$store.dispatch('session/setDriverSuccess', success)
-            await this.$store.dispatch('session/setUserAgent',navigator.userAgent)
-            await this.$store.dispatch('session/driverAttemptIncrement')
-            await this.$store.dispatch('session/setData')
-          },
-          (error) => {
-            this.$store.dispatch('session/setDriverFail', error)
-            this.$store.dispatch('session/driverAttemptIncrement')
-          }
-        )
+        try {
+          geoip2.insights(
+            async (success) => {
+              await this.$store.dispatch('session/setDriverSuccess', success)
+            },
+            (error) => {
+              this.$store.dispatch('session/setDriverFail', error)
+            }
+          )
+        } catch (err) {
+          console.log(err)
+        } finally {
+          this.$store.dispatch('session/setUserAgent', navigator.userAgent)
+          this.$store.dispatch('session/driverAttemptIncrement')
+          this.$store.dispatch('session/setData')
+        }
         break
       default:
     }
