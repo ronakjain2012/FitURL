@@ -14,6 +14,17 @@
 */
 
 const Route = use('Route')
+
+/**
+ * Website routes
+ */
+Route.get('/:id','IndexController.find')
+
+/**
+ * Website API Routes
+ */
 Route.post('app/short','IndexController.store')
 Route.post('app/session','SessionController.store')
+
+
 Route.any('*', 'NuxtController.render')

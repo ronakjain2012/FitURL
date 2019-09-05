@@ -39,6 +39,11 @@ class IndexController {
       response.status(200).json(res)
     } else response.status(403).json(res)
   }
+
+  find({ request, response, session , id }) {
+    let shortUrl = request.params.id
+    response.status(200).json(['assaassaasassasa',shortUrl])
+  }
 }
 
 module.exports = IndexController
