@@ -42,7 +42,6 @@ class IndexController {
 
   find({ request, response, session , id }) {
     let shortUrl = request.params.id
-    response.status(200).json(['assaassaasassasa',shortUrl])
   }
 }
 

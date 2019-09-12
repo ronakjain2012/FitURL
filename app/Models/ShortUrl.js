@@ -150,7 +150,7 @@ class ShortUrl extends Model {
       validation.errors.original_url = 'URL is Required.'
     }
 
-    if (!data.original_url.match(this.RegEx.valid_url)) {
+    if (validation.errors.original_url && !data.original_url.match(this.RegEx.valid_url)) {
       validation.errors.original_url = 'Invalid URL.'
     }
 
@@ -160,7 +160,7 @@ class ShortUrl extends Model {
       data.special_url.match(this.RegEx.url_alias_invalid)
     ) {
       validation.errors.special_url =
-        'URL Alias should not contain special charecters except underscore (_) or hypen (-).'
+        'URL Alias should not contain special characters except underscore (_) or hyphen (-).'
     }
     if (
       data.special_url &&

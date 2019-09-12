@@ -23,6 +23,7 @@
                   prepend-inner-icon="link"
                   v-model="url_options.original_url"
                   :error-messages="errors.original_url"
+                  @keypress.enter="shoutUrl"
                 ></v-text-field>
                 <v-col cols="12" sm="6" md="3" no-gutters>
                 <v-text-field
@@ -223,6 +224,7 @@
 import Logo from '~/components/Logo.vue'
 import SessionTracking from '~/components/SessionTracking.vue'
 import CopyToClipboard from '~/components/CopyToClipboard.vue'
+import ProcessLoader from '~/components/ProcessLoader.vue'
 
 import { mapGetters, mapActions } from 'vuex'
 import repositoryFactory from '~/repository/repositoryFactory'
@@ -234,7 +236,8 @@ export default {
   components: {
     Logo,
     SessionTracking,
-    CopyToClipboard
+    CopyToClipboard,
+    ProcessLoader
   },
   data: function() {
     return {
@@ -297,7 +300,9 @@ export default {
   methods: {
     ...mapActions({
       showSuccess: 'ui/showSuccessSnackbar',
-      showError: 'ui/showErrorSnackbar'
+      showError: 'ui/showErrorSnackbar',
+      showLoader: 'ui/showLoader',
+      hideLoader: 'ui/hideLoader',
     }),
     resetMainFields() {
       this.url_options.special_url = null
@@ -307,6 +312,7 @@ export default {
       this.url_options.expire_time = null
     },
     shoutUrl() {
+      this.showLoader()
       let that = this
       that.url_options.session_id = that.session_id
       shortUrl
@@ -335,6 +341,7 @@ export default {
           }
           that.ui.showLinks = true
           that.resetMainFields()
+          that.hideLoader()
         })
         .catch((err) => {
           this.errors = err.response.data.errors

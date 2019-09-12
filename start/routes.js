@@ -14,16 +14,11 @@
 */
 
 const Route = use('Route')
-
-/**
- * Website routes
- */
-Route.get('/:id','IndexController.find')
-
 /**
  * Website API Routes
  */
 Route.post('app/short','IndexController.store')
+Route.get('app/find','IndexController.find')
 Route.post('app/session','SessionController.store')
 
 

@@ -6,6 +6,10 @@
         <logo />
       </div>
     </v-flex>
+    <v-flex xs12 sm12 md12 class="main-font">
+      donbe
+    </v-flex>
+
   </v-layout>
 </template>
 
@@ -137,34 +141,7 @@ export default {
 </script>
 
 <style>
-.asd {
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  animation: gradientBG 15s ease infinite;
-  background-size: 400% 400%;
-}
 .main-font {
   font-family: 'ABeeZee', sans-serif;
-}
-.secondary-font {
-  font-family: 'Anton', sans-serif;
-}
-
-div[class^='col'],
-div[class*='col'],
-.v-input {
-  padding: 0px;
-  padding-top: 0px;
-}
-
-@keyframes gradientBG {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
 }
 </style>
