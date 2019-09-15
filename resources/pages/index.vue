@@ -1,16 +1,17 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
+  <v-layout row wrap justify-center align-center>
+    <SessionTracking></SessionTracking>
+    <v-flex xs12 sm12 md12>
       <div class="text-center">
         <logo />
       </div>
     </v-flex>
-    <v-flex xs12 sm8 md6>
-      <v-card width="1500">
+    <v-flex xs12 sm12 md12 class="main-font">
+      <v-card>
         <v-card-text>
           <v-container fluid>
-            <v-row>
-              <v-col cols="12" md="10">
+            <v-row v-if="!ui.showLinks">
+              <v-col cols="12" md="10" sm="9">
                 <v-text-field
                   label="Short URL"
                   autofocus
@@ -20,16 +21,29 @@
                   placeholder="Paste URL Here !!"
                   outlined
                   prepend-inner-icon="link"
+                  v-model="url_options.original_url"
+                  :error-messages="errors.original_url"
+                  @keypress.enter="shoutUrl"
                 ></v-text-field>
+                <v-col cols="12" sm="6" md="3" no-gutters>
+                  <v-text-field
+                    label="Url Alias (web-meeting)"
+                    v-model="url_options.special_url"
+                    :error-messages="errors.special_url"
+                  ></v-text-field>
+                </v-col>
               </v-col>
-              <v-col cols="12" md="2">
-                <div class="text-right">
+              <v-col cols="12" md="2" sm="3" class="text-center">
+                <div class="text-center">
                   <v-btn large text rounded @click="showAdvance = !showAdvance">Advance</v-btn>
-                  <v-btn large color="primary" rounded>Short</v-btn>
+                  <v-btn large color="primary" rounded @click="shoutUrl">Short</v-btn>
+                  <v-btn @click="ui.showLinks = true" v-if="haveLinks" text icon>
+                    <v-icon>keyboard_arrow_right</v-icon>
+                  </v-btn>
                 </div>
               </v-col>
             </v-row>
-            <v-row v-if="showAdvance">
+            <v-row v-if="showAdvance && !ui.showLinks" class="main-font">
               <v-flex md12 sm12>
                 <v-card flat>
                   <v-card-text>
@@ -43,13 +57,25 @@
                               <p>This feature is for enterprices and advance users who wants to track the link activity and want to get update for their links.</p>
                             </v-col>
                             <v-col cols="4">
-                              <v-text-field v-model="url_options.user_name" placeholder="Name"></v-text-field>
+                              <v-text-field
+                                v-model="url_options.user_name"
+                                :error-messages="errors.user_name"
+                                placeholder="Name"
+                              ></v-text-field>
                             </v-col>
                             <v-col cols="4">
-                              <v-text-field v-model="url_options.user_email" placeholder="Email"></v-text-field>
+                              <v-text-field
+                                v-model="url_options.user_email"
+                                :error-messages="errors.user_email"
+                                placeholder="Email"
+                              ></v-text-field>
                             </v-col>
                             <v-col cols="4">
-                              <v-text-field v-model="url_options.user_mobile" placeholder="Mobile"></v-text-field>
+                              <v-text-field
+                                v-model="url_options.user_mobile"
+                                :error-messages="errors.user_mobile"
+                                placeholder="Mobile"
+                              ></v-text-field>
                             </v-col>
                           </v-row>
                         </v-expansion-panel-content>
@@ -65,6 +91,7 @@
                             <v-col cols="12">
                               <v-checkbox
                                 v-model="url_options.display_ads"
+                                :error-messages="errors.display_ads"
                                 label="Show Ads on redirect"
                               ></v-checkbox>
                             </v-col>
@@ -83,8 +110,9 @@
                             </v-col>
                             <v-col cols="12">
                               <v-checkbox
-                                v-model="url_options.display_ads"
-                                label="Show Ads on redirect"
+                                v-model="url_options.analytic_report"
+                                :error-messages="errors.analytic_report"
+                                label="Prepare link's analytic report"
                               ></v-checkbox>
                             </v-col>
                           </v-row>
@@ -105,7 +133,7 @@
                         <v-expansion-panel-content>
                           <v-row no-gutters justify="space-around">
                             <v-col cols="12">
-                              <p>After selected time url will be longer accessible by Our portal</p>
+                              <p>After selected time url will not be accessible by Our portal</p>
                             </v-col>
                             <v-col cols="6">
                               <v-menu
@@ -124,6 +152,7 @@
                                     prepend-icon="event"
                                     v-on="on"
                                     clearable
+                                    :error-messages="errors.expire_date"
                                   ></v-text-field>
                                 </template>
                                 <v-date-picker
@@ -153,6 +182,7 @@
                                     readonly
                                     v-on="on"
                                     clearable
+                                    :error-messages="errors.expire_time"
                                   ></v-text-field>
                                 </template>
                                 <v-time-picker
@@ -170,6 +200,25 @@
                 </v-card>
               </v-flex>
             </v-row>
+            <v-row v-if="ui.showLinks">
+              <v-col cols="md12" v-if="haveLinks">
+                <v-btn @click="ui.showLinks = false" text icon>
+                  <v-icon>keyboard_arrow_left</v-icon>
+                </v-btn>
+                <v-card
+                  :flat="!showLinkInBox"
+                  v-for="(item,index) of ui.links"
+                  :key="index"
+                  style="margin-bottom: 10px;"
+                >
+                  <v-card-title>
+                    {{item.short_url}}
+                    <CopyToClipboard :color="'purple'" :id="index" :textToCopy="item.short_url" />
+                  </v-card-title>
+                  <v-card-text>{{item.original_url}}</v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
           </v-container>
         </v-card-text>
       </v-card>
@@ -180,11 +229,22 @@
 <script>
 /* eslint-disable */
 import Logo from '~/components/Logo.vue'
+import SessionTracking from '~/components/SessionTracking.vue'
+import CopyToClipboard from '~/components/CopyToClipboard.vue'
+import ProcessLoader from '~/components/ProcessLoader.vue'
 
+import { mapGetters, mapActions } from 'vuex'
+import repositoryFactory from '~/repository/repositoryFactory'
+import storageService from '~/storageService/ls'
+
+const shortUrl = repositoryFactory.get('shortUrl')
 export default {
   name: 'index',
   components: {
-    Logo
+    Logo,
+    SessionTracking,
+    CopyToClipboard,
+    ProcessLoader
   },
   data: function() {
     return {
@@ -192,13 +252,12 @@ export default {
         (value) => !!value || 'Required.',
         (value) => (value || '').length <= 2000 || 'Max 2000 characters',
         (value) => {
-          const pattern = /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/;
+          const pattern = /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/
           return pattern.test(value) || 'Invalid URL.'
         }
       ],
+      errors: {},
       url_options: {
-        partition_index_number: 0,
-        partition_index: null,
         special_url: null,
         short_url: null,
         original_url: null,
@@ -207,19 +266,97 @@ export default {
         user_name: null,
         user_email: null,
         user_mobile: null,
-        user_country: null,
-        url_meta: null,
-        url_category: null,
         display_ads: 1,
-        analytic_report: 0,
-        force_disabled: 0
+        analytic_report: 0
       },
       datepicker: false,
       timepicker: false,
       showAdvance: false,
+      ui: {
+        showLinks: false,
+        links: []
+      }
     }
   },
-  watch: {}
+  computed: {
+    ...mapGetters({
+      api_url: 'api/ApiUrl',
+      session_id: 'session/getSession'
+    }),
+    showLinkInBox() {
+      return this.ui.links.length > 1
+    },
+    haveLinks() {
+      return this.ui.links.length > 0
+    }
+  },
+  mounted() {
+    /**
+     * Set User data from ls
+     */
+    if (storageService.has('n')) {
+      this.url_options.user_name = storageService.getDecrypted('n')
+    }
+    if (storageService.has('m')) {
+      this.url_options.user_mobile = storageService.getDecrypted('m')
+    }
+    if (storageService.has('e')) {
+      this.url_options.user_email = storageService.getDecrypted('e')
+    }
+  },
+  methods: {
+    ...mapActions({
+      showSuccess: 'ui/showSuccessSnackbar',
+      showError: 'ui/showErrorSnackbar',
+      showLoader: 'ui/showLoader',
+      hideLoader: 'ui/hideLoader'
+    }),
+    resetMainFields() {
+      this.url_options.special_url = null
+      this.url_options.short_url = null
+      this.url_options.original_url = null
+      this.url_options.expire_date = null
+      this.url_options.expire_time = null
+    },
+    shoutUrl() {
+      this.showLoader()
+      let that = this
+      that.url_options.session_id = that.session_id
+      shortUrl
+        .add(that.url_options)
+        .then((response) => {
+          that.showSuccess(response.data.message)
+          /**
+           * Manage Some Local Data related to user
+           */
+          if (
+            response.data.data != undefined &&
+            response.data.data.urls != undefined
+          ) {
+            response.data.data.urls.forEach((element) => {
+              that.ui.links.push(element)
+            })
+          }
+          if (that.url_options.user_name) {
+            storageService.setEncrypted('n', that.url_options.user_name)
+          }
+          if (that.url_options.user_mobile) {
+            storageService.setEncrypted('m', that.url_options.user_mobile)
+          }
+          if (that.url_options.user_email) {
+            storageService.setEncrypted('e', that.url_options.user_email)
+          }
+          that.ui.showLinks = true
+          that.resetMainFields()
+          that.hideLoader()
+        })
+        .catch((err) => {
+          this.errors = err.response.data.errors
+          that.hideLoader()
+          console.log(err)
+        })
+    }
+  }
 }
 </script>
 
@@ -228,6 +365,19 @@ export default {
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   animation: gradientBG 15s ease infinite;
   background-size: 400% 400%;
+}
+.main-font {
+  font-family: 'ABeeZee', sans-serif;
+}
+.secondary-font {
+  font-family: 'Anton', sans-serif;
+}
+
+div[class^='col'],
+div[class*='col'],
+.v-input {
+  padding: 0px;
+  padding-top: 0px;
 }
 
 @keyframes gradientBG {

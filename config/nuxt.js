@@ -26,6 +26,21 @@ module.exports = {
         rel: 'stylesheet',
         href:
           'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material Icons'
+      },
+      /**
+       * font-family: 'Anton', sans-serif;
+       * font-family: 'ABeeZee', sans-serif;
+       */
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css?family=ABeeZee|Anton&display=swap'
+      }
+    ],
+    script: [
+      {
+        src: '//js.maxmind.com/js/apis/geoip2/v2.1/geoip2.js',
+        type: 'text/javascript'
       }
     ]
   },
@@ -56,7 +71,18 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/moment',
+    [
+      '@nuxtjs/google-analytics',
+      {
+        id: process.env.GA_ID
+      }
+    ],
+    [
+      '@nuxtjs/google-tag-manager',
+      { id: process.env.GTM_ID, pageTracking: false }
+    ]
   ],
   /*
    ** Axios module configuration
@@ -92,6 +118,17 @@ module.exports = {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
-    // transpile: [/vue-awesome/]
+  },
+  debug: {
+    enabled: false,
+    sendHitTask: true
+  },
+  pageTransition: {
+    name: 'page',
+    mode: 'out-in'
+  },
+  layoutTransition: {
+    name: 'layout',
+    mode: 'out-in'
   }
 }
