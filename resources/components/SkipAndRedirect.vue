@@ -25,7 +25,7 @@ import repositoryFactory from '~/repository/repositoryFactory'
 const shortUrl = repositoryFactory.get('shortUrl')
 const visit = repositoryFactory.get('visit')
 
-const REDIRECT_IN = 20000 // mi sec
+const REDIRECT_IN = 7000 // mi sec
 export default {
   name: 'SkipAndRedirect',
   components: {
