@@ -20,7 +20,7 @@ class Ls {
       return null
     }
   }
-  getDecrtpted(key) {
+  getDecrypted(key) {
     if (this.canStorage() && this.has(key)) {
       return JSON.parse(security.decrypt(localStorage.getItem(key)))
     } else {

@@ -26,12 +26,12 @@
                   @keypress.enter="shoutUrl"
                 ></v-text-field>
                 <v-col cols="12" sm="6" md="3" no-gutters>
-                <v-text-field
-                  label="Url Alias (web-meeting)"
-                  v-model="url_options.special_url"
-                  :error-messages="errors.special_url"
-                ></v-text-field>
-              </v-col>
+                  <v-text-field
+                    label="Url Alias (web-meeting)"
+                    v-model="url_options.special_url"
+                    :error-messages="errors.special_url"
+                  ></v-text-field>
+                </v-col>
               </v-col>
               <v-col cols="12" md="2" sm="3" class="text-center">
                 <div class="text-center">
@@ -130,7 +130,7 @@
                         <v-expansion-panel-content>
                           <v-row no-gutters justify="space-around">
                             <v-col cols="12">
-                              <p>After selected time url will be longer accessible by Our portal</p>
+                              <p>After selected time url will not be accessible by Our portal</p>
                             </v-col>
                             <v-col cols="6">
                               <v-menu
@@ -199,16 +199,20 @@
             </v-row>
             <v-row v-if="ui.showLinks">
               <v-col cols="md12" v-if="haveLinks">
-                <v-btn @click="ui.showLinks = false" text icon> <v-icon>keyboard_arrow_left</v-icon> </v-btn>
+                <v-btn @click="ui.showLinks = false" text icon>
+                  <v-icon>keyboard_arrow_left</v-icon>
+                </v-btn>
                 <v-card
                   :flat="!showLinkInBox"
                   v-for="(item,index) of ui.links"
                   :key="index"
                   style="margin-bottom: 10px;"
                 >
-                  <v-card-title>{{item.short_url}}                    
-                    <CopyToClipboard :color="'purple'" :id="index" :textToCopy="item.short_url"/> </v-card-title>
-                  <v-card-text>{{item.original_url}} </v-card-text>
+                  <v-card-title>
+                    {{item.short_url}}
+                    <CopyToClipboard :color="'purple'" :id="index" :textToCopy="item.short_url" />
+                  </v-card-title>
+                  <v-card-text>{{item.original_url}}</v-card-text>
                 </v-card>
               </v-col>
             </v-row>
@@ -288,13 +292,13 @@ export default {
      * Set User data from ls
      */
     if (storageService.has('n')) {
-      this.url_options.user_name = storageService.getDecrtpted('n')
+      this.url_options.user_name = storageService.getDecrypted('n')
     }
     if (storageService.has('m')) {
-      this.url_options.user_mobile = storageService.getDecrtpted('m')
+      this.url_options.user_mobile = storageService.getDecrypted('m')
     }
     if (storageService.has('e')) {
-      this.url_options.user_email = storageService.getDecrtpted('e')
+      this.url_options.user_email = storageService.getDecrypted('e')
     }
   },
   methods: {
@@ -302,7 +306,7 @@ export default {
       showSuccess: 'ui/showSuccessSnackbar',
       showError: 'ui/showErrorSnackbar',
       showLoader: 'ui/showLoader',
-      hideLoader: 'ui/hideLoader',
+      hideLoader: 'ui/hideLoader'
     }),
     resetMainFields() {
       this.url_options.special_url = null

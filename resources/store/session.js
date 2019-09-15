@@ -1,6 +1,6 @@
 import storageService from '~/storageService/ls'
 import repositoryFactory from '@/repository/repositoryFactory'
-const sessios = repositoryFactory.get('sessios')
+const session = repositoryFactory.get('session')
 
 export const state = () => {
   return {
@@ -71,7 +71,7 @@ export const mutations = {
     storageService.setEncrypted('session', sessionData)
   },
   loadSession(state) {
-    state.session = storageService.getDecrtpted('session')
+    state.session = storageService.getDecrypted('session')
     if (state.session) state.session_id = state.session.session_id || null
   }
 }
@@ -138,7 +138,7 @@ export const actions = {
       timezone: state.time_zone,
       raw_data: JSON.stringify(state.driver.raw_data)
     }
-    sessios
+    session
       .add(reqData)
       .then((response) => {
         commit('setSession', response.data)

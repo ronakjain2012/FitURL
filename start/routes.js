@@ -18,7 +18,8 @@ const Route = use('Route')
  * Website API Routes
  */
 Route.post('app/short','IndexController.store')
-Route.get('app/find','IndexController.find')
+Route.get('app/short/:id','IndexController.find')
+Route.post('app/visit','VisitLogController.update')
 Route.post('app/session','SessionController.store')
 
 

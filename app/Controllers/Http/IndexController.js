@@ -2,7 +2,7 @@
 'use strict'
 
 const ShortUrl = use('App/Models/ShortUrl')
-const NotificationService = use('App/Utilities/NotificationService')
+// const NotificationService = use('App/Utilities/NotificationService')
 const Env = use('Env')
 
 /**
@@ -40,8 +40,49 @@ class IndexController {
     } else response.status(403).json(res)
   }
 
-  find({ request, response, session , id }) {
+  async find({ request, response, session }) {
     let shortUrl = request.params.id
+    let shortModel = await ShortUrl.query()
+      .whereNull('deleted_at')
+      .where('force_disabled', 0)
+      .whereNotNull('special_url')
+      .where(function() {
+        this.where('special_url', shortUrl).orWhere('short_url', shortUrl)
+      })
+      .first()
+    if (!shortModel) {
+      shortModel = await ShortUrl.query()
+        .whereNull('deleted_at')
+        .where('force_disabled', 0)
+        .where('partition_index_number', shortUrl.length)
+        .where('partition_index', shortUrl.charAt(0))
+        .where(function() {
+          this.where('special_url', shortUrl).orWhere('short_url', shortUrl)
+        })
+        .first()
+    }
+    if (shortModel) {
+      shortModel.hits++
+      shortModel.save()
+      response.status(200).json({
+        status: true,
+        message: 'Redirecting...',
+        data: {
+          original_url: shortModel.original_url,
+          meta: shortModel.url_meta,
+          url_category: shortModel.url_category,
+          domain: shortModel.domain
+        }
+      })
+
+    } else {
+      response.status(403).json({
+        status: false,
+        errors: {
+          original_url: 'Invalid URL.'
+        }
+      })
+    }
   }
 }
 

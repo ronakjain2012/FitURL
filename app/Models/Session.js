@@ -20,7 +20,7 @@ class Session extends Model {
 
   static async addAndUpdate(session) {
     let thisModel = await this.query()
-      .where('deleted_at', null)
+      .whereNull('deleted_at')
       .where('session', session.session_id)
       .first()
     if (
@@ -36,10 +36,13 @@ class Session extends Model {
         thisModel.updated_at || thisModel.created_at,
         'YYYY-MM-DD HH:mm:ss'
       ).format('YYYY-MM-DD HH:mm:ss')
-
-      await thisModel.save()
+      if(thisModel.ip!==session.ip){
+        thisModel = await this.createThis(session)  
+      } else {
+        thisModel = await this.updateThis(thisModel,session)
+      }
     } else {
-      thisModel = await this.create(session)
+      thisModel = await this.createThis(session)
     }
     return {
       session_id: thisModel.session,
@@ -55,8 +58,35 @@ class Session extends Model {
     }
   }
 
-  static async create(session) {
+  static async createThis(session) {
     let thisModel = new this()
+    thisModel.session = session.session_id
+    thisModel.region = session.region || null
+    thisModel.country = session.country || null
+    thisModel.country_code = session.country_code || null
+    thisModel.state = session.state || null
+    thisModel.city = session.city || null
+    thisModel.zip_code = session.zip_code || null
+    thisModel.iso_code = session.iso_code || null
+    thisModel.lat = session.lat || null
+    thisModel.long = session.long || null
+    thisModel.postal_code = session.postal_code || null
+    thisModel.area_code = session.area_code || null
+    thisModel.metro_code = session.metro_code || null
+    thisModel.ip = session.ip || null
+    thisModel.visit_count = 1
+    thisModel.agent = session.agent || null
+    thisModel.isp = session.isp || null
+    thisModel.org = session.org || null
+    thisModel.business_name = session.business_name || null
+    thisModel.business_website = session.business_website || null
+    thisModel.timezone = session.timezone || 'UTC'
+    thisModel.raw_data = session.raw_data || null
+    await thisModel.save()
+    return thisModel
+  }
+
+  static async updateThis(thisModel, session) {
     thisModel.session = session.session_id
     thisModel.region = session.region || null
     thisModel.country = session.country || null
