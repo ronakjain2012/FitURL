@@ -149,8 +149,9 @@ class ShortUrl extends Model {
     if (!data.original_url) {
       validation.errors.original_url = 'URL is Required.'
     }
-
-    if (validation.errors.original_url && !data.original_url.match(this.RegEx.valid_url)) {
+    
+    if (data.original_url &&
+      data.original_url.length && !data.original_url.match(this.RegEx.valid_url)) {
       validation.errors.original_url = 'Invalid URL.'
     }
 

@@ -37,6 +37,9 @@
                 <div class="text-center">
                   <v-btn large text rounded @click="showAdvance = !showAdvance">Advance</v-btn>
                   <v-btn large color="primary" rounded @click="shoutUrl">Short</v-btn>
+                  <v-btn @click="ui.showLinks = true" v-if="haveLinks" text icon>
+                    <v-icon>keyboard_arrow_right</v-icon>
+                  </v-btn>
                 </div>
               </v-col>
             </v-row>
@@ -109,7 +112,7 @@
                               <v-checkbox
                                 v-model="url_options.analytic_report"
                                 :error-messages="errors.analytic_report"
-                                label="Show Ads on redirect"
+                                label="Prepare link's analytic report"
                               ></v-checkbox>
                             </v-col>
                           </v-row>
@@ -349,6 +352,7 @@ export default {
         })
         .catch((err) => {
           this.errors = err.response.data.errors
+          that.hideLoader()
           console.log(err)
         })
     }

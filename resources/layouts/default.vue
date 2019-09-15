@@ -6,11 +6,11 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="d-none d-lg-block">
         <v-btn text color="white" to="/" class="margin-right-15" nuxt>Home</v-btn>
-        <v-btn text color="white" to="/fit/apis" class="margin-right-15" nuxt>APIs</v-btn>
+        <!-- <v-btn text color="white" to="/fit/apis" class="margin-right-15" nuxt>APIs</v-btn>
         <v-btn text color="white" to="/fit/reports" class="margin-right-15" nuxt>Reports</v-btn>
-        <v-btn text color="white" to="/fit/contact" class="margin-right-15" nuxt>Helping Hand</v-btn>
+        <v-btn text color="white" to="/fit/contact" class="margin-right-15" nuxt>Helping Hand</v-btn> -->
       </v-toolbar-items>
-      <v-menu left bottom class="main-font">
+      <!-- <v-menu left bottom class="main-font">
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on" class="d-none d-lg-block">
             <v-icon class="white--text">mdi-dots-vertical</v-icon>
@@ -42,7 +42,7 @@
             <v-list-item-title>About</v-list-item-title>
           </v-list-item>
         </v-list>
-      </v-menu>
+      </v-menu> -->
     </v-app-bar>
     <v-content>
       <v-container class="padding-app">
@@ -59,7 +59,7 @@
           <span class="main-font">Home</span>
           <v-icon>beach_access</v-icon>
         </v-btn>
-        <v-btn>
+        <!-- <v-btn>
           <span class="main-font">APIs</span>
           <v-icon>repeat</v-icon>
         </v-btn>
@@ -99,7 +99,7 @@
               <v-list-item-title>About</v-list-item-title>
             </v-list-item>
           </v-list>
-        </v-menu>
+        </v-menu> -->
       </v-bottom-navigation>
     </v-footer>
   </v-app>

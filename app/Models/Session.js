@@ -31,15 +31,15 @@ class Session extends Model {
           .utc()
           .format('X')
     ) {
-      thisModel.visit_count++
-      thisModel.time_end = moment(
-        thisModel.updated_at || thisModel.created_at,
-        'YYYY-MM-DD HH:mm:ss'
-      ).format('YYYY-MM-DD HH:mm:ss')
-      if(thisModel.ip!==session.ip){
-        thisModel = await this.createThis(session)  
+      if (thisModel.ip !== session.ip) {
+        thisModel = await this.createThis(session)
       } else {
-        thisModel = await this.updateThis(thisModel,session)
+        thisModel.visit_count++
+        thisModel.time_end = moment(
+          thisModel.updated_at || thisModel.created_at,
+          'YYYY-MM-DD HH:mm:ss'
+        ).format('YYYY-MM-DD HH:mm:ss')
+        thisModel = await this.updateThis(thisModel, session)
       }
     } else {
       thisModel = await this.createThis(session)
@@ -60,7 +60,7 @@ class Session extends Model {
 
   static async createThis(session) {
     let thisModel = new this()
-    thisModel.session = session.session_id
+    thisModel.session = session.session_id_new
     thisModel.region = session.region || null
     thisModel.country = session.country || null
     thisModel.country_code = session.country_code || null
@@ -101,7 +101,6 @@ class Session extends Model {
     thisModel.area_code = session.area_code || null
     thisModel.metro_code = session.metro_code || null
     thisModel.ip = session.ip || null
-    thisModel.visit_count = 1
     thisModel.agent = session.agent || null
     thisModel.isp = session.isp || null
     thisModel.org = session.org || null
