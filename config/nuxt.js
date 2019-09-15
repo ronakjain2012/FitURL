@@ -120,7 +120,7 @@ module.exports = {
     extend(config, ctx) {}
   },
   debug: {
-    enabled: true,
+    enabled: false,
     sendHitTask: true
   },
   pageTransition: {
