@@ -2,7 +2,7 @@
 
 > Create short URLs Quick and Advance
 >
-> Under Development
+> Under Development (http://thefiturl.com)
 
 ## Build Setup
 
