@@ -5,7 +5,7 @@
         <v-container fluid>
           <v-row>
             <v-col cols="12" md="7">
-              <h1 class="main-title">Fit URL</h1>
+              <h1 class="main-title display-4">Fit URL</h1>
               <br/>
               <br/>
               <p>Create and share powerful short links</p>
@@ -23,7 +23,6 @@
 <style scoped>
 .main-title {
   font-family: 'ABeeZee', sans-serif;
-  font-size: 80px;
   letter-spacing: 2 px;
 }
 .main-sub-title {

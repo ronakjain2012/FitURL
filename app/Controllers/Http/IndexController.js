@@ -18,7 +18,7 @@ class IndexController {
     if (Env.get('NODE_ENV') === 'development') {
       return [Env.get('APP_URL')]
     }
-    return [Env.get('APP_URL'), 'thefiturl.com', 'fit.com', 'fiturl.co']
+    return ['thefiturl.com']
   }
 
   async store({ request, response, session }) {
