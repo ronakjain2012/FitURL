@@ -5,10 +5,10 @@ import Vue from "vue";
 export default {
   state: {
     appConfig: {
-      name: "Exchange",
-      logoImg:
+      name: "FitURL",
+      avatar:
         "https://pluspng.com/img-png/png-logo-design-fancy-png-logo-design-91-on-professional-logo-design-with-png-logo-design-734.png",
-      version: "0.0.1",
+      version: "0.0.2",
       defaultLang: "en-us",
       currentLang: "en-us",
       availableLangs: [

@@ -7,6 +7,7 @@ Vue.use(Vuetify);
 const opts = {
   iconfont: "mdi",
   theme: {
+    // disable: true, 
     themes: {
       light: light,
       dark: dark

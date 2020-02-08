@@ -7,6 +7,7 @@
         </v-overlay>
       </div>
       <div v-else class="block-main-container">
+        <UiHeader/>
         <keep-alive>
           <router-view></router-view>
         </keep-alive>
@@ -17,7 +18,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-
+import UiHeader from "@/components/UI/UiHeader";
 export default {
   computed: {
     ...mapGetters([
@@ -27,6 +28,7 @@ export default {
       "apiProcessStatus"
     ])
   },
+  components:{UiHeader},
   watch: {
     progressStatus: function(newVal) {
       if (newVal === true) {
@@ -48,9 +50,8 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: $color-text;
-  background-color: $color-background-dashboard-main;
+  background-color: $color-background-dashboard-main !important;
 }
 .ex-overlay,
 .v-overlay,
