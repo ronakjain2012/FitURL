@@ -1,4 +1,4 @@
-# exchange-frontend
+# FitURL
 
 ## Project setup
 ```
