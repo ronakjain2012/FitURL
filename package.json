@@ -1,0 +1,51 @@
+{
+  "name": "fiturl",
+  "version": "0.0.2",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "test:e2e": "vue-cli-service test:e2e",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "axios-auth-refresh": "^1.0.7",
+    "babel-polyfill": "^6.26.0",
+    "core-js": "^2.6.11",
+    "deepmerge": "^4.2.2",
+    "humanize-duration": "^3.21.0",
+    "module": "^1.2.5",
+    "moment": "^2.24.0",
+    "randomcolor": "^0.5.4",
+    "register-service-worker": "^1.6.2",
+    "sass": "^1.24.4",
+    "vue": "^2.6.11",
+    "vue-progressbar": "^0.7.5",
+    "vue-router": "^3.1.5",
+    "vuetify": "^2.2.11",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@mdi/font": "^4.9.95",
+    "@vue/cli-plugin-babel": "^3.12.0",
+    "@vue/cli-plugin-e2e-cypress": "^3.12.0",
+    "@vue/cli-plugin-eslint": "^3.12.0",
+    "@vue/cli-plugin-pwa": "^3.12.0",
+    "@vue/cli-plugin-unit-mocha": "^3.12.0",
+    "@vue/cli-service": "^3.12.0",
+    "@vue/test-utils": "1.0.0-beta.29",
+    "axios": "^0.19.2",
+    "babel-eslint": "^10.0.1",
+    "chai": "^4.1.2",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.2.3",
+    "node-sass": "^4.13.0",
+    "sass-loader": "7.1.0",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
+    "vue-cli-plugin-vuetify": "^2.0.4",
+    "vue-template-compiler": "^2.6.11",
+    "vuetify-loader": "^1.4.3"
+  }
+}

@@ -1,0 +1,214 @@
+$color-main: #449EFF;//#5056ca;// //#62bb31;
+$color-secondary: #e8f2fb;
+$color-dashboard-background: #fbfbfd;
+$color-tables-background: #ffffff;
+$color-text: #3f4a4a;
+$color-text-invert: #ffffff;
+$color-button: #593EC8;
+$color-warning: #ff6d58;
+$color-shadow: #171720;
+$color-icon-table-neutral-button: #3f4a4a;
+
+/*
+$color-main: #81D742;
+$color-secondary: #ebf9f6;
+$color-dashboard-background: #fbfbfd;
+$color-tables-background: #ffffff;
+$color-text: #3f4a4a;
+$color-text-invert: #ffffff;
+$color-button: #96a49e;
+$color-warning: #b91c18;
+$color-shadow: #171720;
+$color-icon-table-neutral-button: grey;
+*/
+
+@function hex_to_rgb_to_string($hex_color) {
+  @return "#{red($hex_color)}, #{green($hex_color)}, #{blue($hex_color)}";
+}
+
+@function render_rgb_function($color-name)
+{
+  @return "rgb(var(--color-#{unquote($color-name)}))";
+}
+
+@function render_darken_function($color-name,$darken-percent:0) {
+      @return "linear-gradient(to top, rgba(0, 0, 0, #{($darken-percent)}), rgba(0, 0, 0, #{($darken-percent)})) rgb(var(--color-#{unquote($color-name)}))";
+}
+
+@function render_alpha_function($color-name,$alpha-percent:1) {
+      @return "rgba(var(--color-#{unquote($color-name)}), #{($alpha-percent)})";
+}
+
+
+@function render_color_name($color-name, $color-variant:null) {
+  @if ($color-variant != null) {
+    @return var(--color-#{$color-name}-#{$color-variant});
+  } @else {
+    @return var(--color-#{$color-name});
+  }
+}
+
+$colors: (
+        main: hex_to_rgb_to_string($color-main),
+        secondary: hex_to_rgb_to_string($color-secondary),
+        dashboard-background: hex_to_rgb_to_string($color-dashboard-background),
+        tables-background: hex_to_rgb_to_string($color-tables-background),
+        text: hex_to_rgb_to_string($color-text),
+        text-invert: hex_to_rgb_to_string($color-text-invert),
+        button: hex_to_rgb_to_string($color-button),
+        warning: hex_to_rgb_to_string($color-warning),
+        shadow: hex_to_rgb_to_string($color-shadow),
+        icon-table-neutral-button: hex_to_rgb_to_string($color-icon-table-neutral-button),
+);
+
+:root {
+   @each $name, $color in $colors {
+      --color-#{$name}: #{unquote($color)};
+  }
+}
+
+$colors2:(
+        background-main-background: (
+                color: unquote(render_color_name(dashboard-background)),
+                rgb_string: unquote(render_rgb_function(background-main-background-color))),
+        background-darken0-main: (
+                color: unquote(render_color_name(main)),
+                rgb_string: unquote(render_rgb_function(background-darken0-main-color)),
+                darken_string: unquote(render_darken_function(background-darken0-main-color))),
+        background-darken10-main: (
+                color: unquote(render_color_name(main)),
+                darken_string: unquote(render_darken_function(background-darken10-main-color, 0.1))),
+        background-darken20-main: (
+                color: unquote(render_color_name(main)),
+                darken_string: unquote(render_darken_function(background-darken10-main-color, 0.2))),
+        foreground-main: (
+                color: unquote(render_color_name(text-invert)),
+                rgb_string: unquote(render_rgb_function(foreground-main-color)),
+                alpha_string: unquote(render_alpha_function(foreground-main-color, 0.5))),
+        background-secondary: (
+                color: unquote(render_color_name(secondary)),
+                rgb_string: unquote(render_rgb_function(background-secondary-color))),
+        foreground-secondary:(
+                color: unquote(render_color_name(text)),
+                rgb_string: unquote(render_rgb_function(foreground-secondary-color)),
+                darken_string: unquote(render_darken_function(foreground-secondary-color, 0.4))),
+        background-button:(
+                color: unquote(render_color_name(button)),
+                rgb_string: unquote(render_rgb_function(background-button-color))),
+        foreground-button:(
+                color: unquote(render_color_name(text-invert)),
+                rgb_string: unquote(render_rgb_function(foreground-button-color))),
+        background-table:(
+                color: unquote(render_color_name(tables-background)),
+                rgb_string: unquote(render_rgb_function(background-table-color))),
+        background-form:(
+                color: unquote(render_color_name(tables-background)),
+                rgb_string: unquote(render_rgb_function(background-form-color))),
+        text-alpha5-table:(
+                color: unquote(render_color_name(text)),
+                alpha_string: unquote(render_alpha_function(text-alpha5-table-color, 0.05))),
+        text-alpha10-table:(
+                color: unquote(render_color_name(text)),
+                alpha_string: unquote(render_alpha_function(text-alpha10-table-color, 0.1))),
+        text-alpha30-table:(
+                color: unquote(render_color_name(text)),
+                alpha_string: unquote(render_alpha_function(text-alpha30-table-color, 0.3))),
+        text-alpha60-table: (
+                color: unquote(render_color_name(text)),
+                alpha_string: unquote(render_alpha_function(text-alpha60-table-color, 0.6))),
+        text-alpha80-table: (
+                color: unquote(render_color_name(text)),
+                alpha_string: unquote(render_alpha_function(text-alpha80-table-color, 0.8))),
+        foreground-table: (
+                color: unquote(render_color_name(text)),
+                rgb_string: unquote(render_rgb_function(foreground-table-color))),
+        shadow: (
+                color: unquote(render_color_name(shadow)),
+                alpha_string: unquote(render_alpha_function(shadow-color, 0.05))),
+        icon-table-action-button: (
+                color: unquote(render_color_name(icon-table-neutral-button)),
+                rgb_string: unquote(render_rgb_function(icon-table-action-button-color))),
+        background-alpha20-table-action-button: (
+                color: unquote(render_color_name(icon-table-neutral-button)),
+                alpha_string: unquote(render_alpha_function(background-alpha20-table-action-button-color, 0.2))),
+        background-hover-alpha50-table-action-button: (
+                color: unquote(render_color_name(icon-table-neutral-button)),
+                alpha_string: unquote(render_alpha_function(background-hover-alpha50-table-action-button-color, 0.5))),
+        icon-delete-table-action-button: (
+                color: unquote(render_color_name(warning)),
+                rgb_string: unquote(render_rgb_function(icon-delete-table-action-button-color))),
+        background-delete-alpha20-table-action-button:(
+                color: unquote(render_color_name(warning)),
+                alpha_string: unquote(render_alpha_function(background-delete-alpha20-table-action-button-color, 0.2))),
+        background-hover-delete-alpha50-table-action-button: (
+                color: unquote(render_color_name(warning)),
+                alpha_string: unquote(render_alpha_function(background-hover-delete-alpha50-table-action-button-color, 0.5))),
+        icon-form-action-button: (
+                color: unquote(render_color_name(text-invert)),
+                rgb_string: unquote(render_rgb_function(icon-form-action-button-color))),
+        background-form-action-button: (
+                color: unquote(render_color_name(button)),
+                rgb_string: unquote(render_rgb_function(background-form-action-button-color))),
+        background-hover-darken30-form-action-button: (
+                color: unquote(render_color_name(button)),
+                darken_string: unquote(render_darken_function(background-hover-darken30-form-action-button-color, 0.3))),
+        icon-delete-form-action-button: (
+                color: unquote(render_color_name(text-invert)),
+                rgb_string: unquote(render_rgb_function(icon-delete-form-action-button-color))),
+        background-delete-form-action-button: (
+                color: unquote(render_color_name(warning)),
+                rgb_string: unquote(render_rgb_function(background-delete-form-action-button-color))),
+        background-hover-delete-darken30-form-action-button: (
+                color: unquote(render_color_name(warning)),
+                darken_string: unquote(render_darken_function(background-hover-delete-darken30-form-action-button-color, 0.3))),
+        background-overlay-alpha60-table: (
+                color: unquote(render_color_name(tables-background)),
+                alpha_string: unquote(render_alpha_function(background-overlay-alpha60-table-color, 0.6))),
+);
+
+$color-background-dashboard-main: render_color_name(background-main-background,rgb_string);
+$color-background-darken0-main: render_color_name(background-darken0-main,rgb_string);
+$color-background-darken10-main: render_color_name(background-darken10-main,darken_string);
+$color-background-darken20-main: render_color_name(background-darken20-main,darken_string);
+$color-foreground-main: render_color_name(foreground-main,rgb_string);
+$color-foreground-alpha50-main: render_color_name(foreground-main,alpha_string);
+$color-background-secondary: render_color_name(background-secondary,rgb_string);
+$color-foreground-secondary: render_color_name(foreground-secondary,rgb_string);
+$color-background-button: render_color_name(background-button,rgb_string);
+$color-foreground-button: render_color_name(foreground-button,rgb_string);
+$color-background-table: render_color_name(background-table,rgb_string);
+$color-background-form: render_color_name(background-form,rgb_string);
+$color-text-alpha5-table: render_color_name(text-alpha5-table,alpha_string);
+$color-text-alpha10-table: render_color_name(text-alpha10-table,alpha_string);
+$color-text-alpha30-table: render_color_name(text-alpha30-table,alpha_string);
+$color-text-alpha60-table: render_color_name(text-alpha60-table,alpha_string);
+$color-text-alpha80-table: render_color_name(text-alpha80-table,alpha_string);
+$color-foreground-table: render_color_name(foreground-table,rgb_string);
+$color-main-shadow: render_color_name(shadow,alpha_string);
+$color-icon-table-action-button: render_color_name(icon-table-action-button,rgb_string);
+$color-background-alpha20-table-action-button: render_color_name(background-alpha20-table-action-button,alpha_string);
+$color-background-hover-alpha50-table-action-button: render_color_name(background-hover-alpha50-table-action-button,alpha_string);
+$color-icon-delete-table-action-button: render_color_name(icon-delete-table-action-button,rgb_string);
+$color-background-delete-alpha20-table-action-button: render_color_name(background-delete-alpha20-table-action-button,alpha_string);
+$color-background-hover-delete-alpha50-table-action-button: render_color_name(background-hover-delete-alpha50-table-action-button,alpha_string);
+
+$color-icon-form-action-button: render_color_name(icon-form-action-button,rgb_string);
+$color-background-form-action-button: render_color_name(background-form-action-button,rgb_string);
+$color-background-hover-darken30-form-action-button: render_color_name(background-hover-darken30-form-action-button,darken_string);
+$color-icon-delete-form-action-button: render_color_name(icon-delete-form-action-button,rgb_string);
+$color-background-delete-form-action-button: render_color_name(background-delete-form-action-button,rgb_string);
+$color-background-hover-delete-darken30-form-action-button: render_color_name(background-hover-delete-darken30-form-action-button,darken_string);
+
+$color-background-overlay-alpha60-table: render_color_name(background-overlay-alpha60-table,alpha_string);
+
+:root {
+  @each $name, $color in $colors2 {
+    @if type-of($color) == map {
+      @each $subname, $subcolor in $color {
+        --color-#{$name}-#{$subname}: #{$subcolor};
+      }
+    } @else {
+      --color-#{$name}: #{unquote($color)};
+    }
+  }
+}
