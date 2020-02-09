@@ -61,15 +61,15 @@
       <v-row align="center" justify="center">
         <v-col cols="12" class="text-center color-secondary--text">
           <v-card elevation="1" max-width="1400" class="mx-auto">
-            <v-system-bar lights-out></v-system-bar>
             <v-carousel
               :continuous="false"
-              :cycle="true"
+              :cycle="false"
               :show-arrows="true"
               hide-delimiter-background
               show-arrows-on-hover
               :touchless="true"
               delimiter-icon="mdi-minus"
+              height="610"
             >
               <v-carousel-item v-for="(slide, i) in slides" :key="i">
                 <v-sheet :color="colors[i]" height="100%" tile>
