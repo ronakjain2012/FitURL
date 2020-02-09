@@ -77,7 +77,11 @@
                     <v-col cols="12" class="text-center color-text-invert--text">
                       <div>
                         <v-avatar width="150" height="150">
-                          <img :src="slide.avatar" lazy-src="https://pluspng.com/img-png/png-logo-design-fancy-png-logo-design-91-on-professional-logo-design-with-png-logo-design-734.png" :alt="slide.name" />
+                          <img
+                            :src="slide.avatar"
+                            lazy-src="https://pluspng.com/img-png/png-logo-design-fancy-png-logo-design-91-on-professional-logo-design-with-png-logo-design-734.png"
+                            :alt="slide.name"
+                          />
                         </v-avatar>
                       </div>
                       <div class="display-3">{{ slide.name }}</div>
