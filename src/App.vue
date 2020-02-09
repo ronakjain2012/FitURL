@@ -19,12 +19,15 @@
         </keep-alive>
       </div>
     </div>
+    <Footer/>
     <vue-progress-bar></vue-progress-bar>
   </v-app>
 </template>
 <script>
 import { mapGetters } from "vuex";
 import UiHeader from "@/components/UI/UiHeader";
+import Footer from "@/components/UI/Footer";
+
 export default {
   computed: {
     ...mapGetters([
@@ -34,7 +37,7 @@ export default {
       "apiProcessStatus"
     ])
   },
-  components: { UiHeader },
+  components: { UiHeader,Footer },
   watch: {
     progressStatus: function(newVal) {
       if (newVal === true) {

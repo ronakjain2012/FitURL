@@ -3,15 +3,15 @@
     <v-app-bar color="primary" class="ui-header-bar" dark flat fixed app>
       <router-link to="login" color="color-text">
         <v-img
-          :src="getAppLogo"
-          lazy-src="https://pluspng.com/img-png/png-logo-design-fancy-png-logo-design-91-on-professional-logo-design-with-png-logo-design-734.png"
-          max-width="50"
+          src="/img/logo.png"
+          lazy-src="/img/logo.png"
+          max-width="80"
           max-height="50"
         ></v-img>
       </router-link>
-      <v-toolbar-title>
+      <!-- <v-toolbar-title>
         <router-link to="/" class="title-main color-text--text">{{getAppName}}</router-link>
-      </v-toolbar-title>
+      </v-toolbar-title> -->
       <v-spacer></v-spacer>
       <v-menu left>
         <template v-slot:activator="{ on }">

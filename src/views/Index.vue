@@ -5,7 +5,9 @@
         <v-row align="center" justify="center">
           <v-col cols="10" class="color-secondary--text">
             <span class="display-4 font-weight-black">URLs</span>
-            <span class="display-3 font-italic font-weight-medium">Digital Seeds of Future...</span>
+            <span
+              class="display-3 font-italic font-weight-medium"
+            >&nbsp;&nbsp;Digital Seeds of Future...</span>
           </v-col>
         </v-row>
         <v-row align="center" justify="center">
@@ -49,7 +51,344 @@
         </v-col>
       </v-row>
       <v-row align="center" justify="center">
-        <v-col cols="12" class="text-center color-secondary--text">asasdasdsa</v-col>
+        <v-col cols="3" class="text-center color-text--text">
+          <v-card class="mx-auto my-12">
+            <v-avatar color="color-secondary" height="100" width="100">
+              <v-icon color="color-text-invert" size="80">mdi-link</v-icon>
+            </v-avatar>
+            <v-card-text>
+              <v-row align="center" justify="center" class="mx-0 text-center">
+                <v-rating :value="4.5" color="color-text" dense half-increments readonly size="14"></v-rating>
+                <div class="grey--text ml-4">4.5 (Service Score)</div>
+              </v-row>
+              <div class="my-4 subtitle-1 color-text--text">Link Management</div>
+              <div class="color-text--text">
+                <v-list dense>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Fast Redirects</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Editable destination URLs</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Smart Urls</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Link expiration</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>QR codes</v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="3" class="text-center color-secondary--text">
+          <v-card class="mx-auto my-12">
+            <v-avatar color="color-secondary" height="100" width="100">
+              <v-icon color="color-text-invert" size="80">mdi-google-circles-extended</v-icon>
+            </v-avatar>
+            <v-card-text>
+              <v-row align="center" justify="center" class="mx-0 text-center">
+                <v-rating :value="4.5" color="color-text" dense half-increments readonly size="14"></v-rating>
+                <div class="grey--text ml-4">4 (Service Score)</div>
+              </v-row>
+              <div class="my-4 subtitle-1 color-text--text">Colleboration</div>
+              <div class="color-text--text">
+                <v-list dense>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Workspace Management</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>URL Tagging</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>LAP (Link Access Policies)</v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="3" class="text-center color-secondary--text">
+          <v-card class="mx-auto my-12">
+            <v-avatar color="color-secondary" height="100" width="100">
+              <v-icon color="color-text-invert" size="80">mdi-equalizer-outline</v-icon>
+            </v-avatar>
+            <v-card-text>
+              <v-row align="center" justify="center" class="mx-0 text-center">
+                <v-rating :value="4.5" color="color-text" dense half-increments readonly size="14"></v-rating>
+                <div class="grey--text ml-4">4.8 (Service Score)</div>
+              </v-row>
+              <div class="my-4 subtitle-1 color-text--text">Traffic Routing</div>
+              <div class="color-text--text">
+                <v-list dense>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Traffic Routing</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Links with Emoji</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Multiple Redirection</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>SEO Enabled</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Web Hooks on Redirect</v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="3" class="text-center color-secondary--text">
+          <v-card class="mx-auto my-12">
+            <v-avatar color="color-secondary" height="100" width="100">
+              <v-icon color="color-text-invert" size="80">mdi-chart-line</v-icon>
+            </v-avatar>
+            <v-card-text>
+              <v-row align="center" justify="center" class="mx-0 text-center">
+                <v-rating :value="4.5" color="color-text" dense half-increments readonly size="14"></v-rating>
+                <div class="grey--text ml-4">3.5 (Service Score)</div>
+              </v-row>
+              <div class="my-4 subtitle-1 color-text--text">Analytics</div>
+              <div class="color-text--text">
+                <v-list dense>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Click Management</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Links History & Auditing</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Details Reporting of links</v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row align="center" justify="center">
+        <v-col cols="3" class="text-center color-text--text">
+          <v-card class="mx-auto my-12">
+            <v-avatar color="color-secondary" height="100" width="100">
+              <v-icon color="color-text-invert" size="80">mdi-monitor</v-icon>
+            </v-avatar>
+            <v-card-text>
+              <v-row align="center" justify="center" class="mx-0 text-center">
+                <v-rating :value="4.5" color="color-text" dense half-increments readonly size="14"></v-rating>
+                <div class="grey--text ml-4">4.3 (Service Score)</div>
+              </v-row>
+              <div class="my-4 subtitle-1 color-text--text">Sales and Markting</div>
+              <div class="color-text--text">
+                <v-list dense>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Mffiliate Marketing</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Link Access Audit</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Marketing Analysis</v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="3" class="text-center color-secondary--text">
+          <v-card class="mx-auto my-12">
+            <v-avatar color="color-secondary" height="100" width="100">
+              <v-icon color="color-text-invert" size="80">mdi-piggy-bank</v-icon>
+            </v-avatar>
+            <v-card-text>
+              <v-row align="center" justify="center" class="mx-0 text-center">
+                <v-rating :value="4.5" color="color-text" dense half-increments readonly size="14"></v-rating>
+                <div class="grey--text ml-4">4.5 (Service Score)</div>
+              </v-row>
+              <div class="my-4 subtitle-1 color-text--text">Reffer and Earn</div>
+              <div class="color-text--text">
+                <v-list dense>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Click & Earn</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Credit Management</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Offers & Gifts </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Credit to Cash</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Business Opportunities</v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="3" class="text-center color-secondary--text">
+          <v-card class="mx-auto my-12">
+            <v-avatar color="color-secondary" height="100" width="100">
+              <v-icon color="color-text-invert" size="80">mdi-desktop-mac-dashboard</v-icon>
+            </v-avatar>
+            <v-card-text>
+              <v-row align="center" justify="center" class="mx-0 text-center">
+                <v-rating :value="4.5" color="color-text" dense half-increments readonly size="14"></v-rating>
+                <div class="grey--text ml-4">4.5 (Service Score)</div>
+              </v-row>
+              <div class="my-4 subtitle-1 color-text--text">Dashboard</div>
+              <div class="color-text--text">
+                <v-list dense>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>User Management</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Click Reports</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Custom Reports & Sharing</v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="3" class="text-center color-secondary--text">
+          <v-card class="mx-auto my-12">
+            <v-avatar color="color-secondary" height="100" width="100">
+              <v-icon color="color-text-invert" size="80">mdi-shield-link-variant</v-icon>
+            </v-avatar>
+            <v-card-text>
+              <v-row align="center" justify="center" class="mx-0 text-center">
+                <v-rating :value="4.5" color="color-text" dense half-increments readonly size="14"></v-rating>
+                <div class="grey--text ml-4">4.5 (Service Score)</div>
+              </v-row>
+              <div class="my-4 subtitle-1 color-text--text">Secure</div>
+              <div class="color-text--text">
+                <v-list dense>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>AWS Archtechture</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>256Bit Data Encryption </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>100% UP Time</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>DDoS Protection</v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-icon color="color-text">mdi-chevron-right</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>Multiple DB Instances</v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
       </v-row>
     </div>
     <div class="section">
@@ -89,6 +428,7 @@
                       <div class="display-4">
                         <v-rating
                           :value="Math.min(parseInt(slide.rating),5)"
+                          readonly
                           background-color="color-dashboard-background"
                           color="color-text-invert"
                         ></v-rating>
