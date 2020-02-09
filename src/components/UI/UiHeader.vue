@@ -2,16 +2,11 @@
   <div class="ui-header">
     <v-app-bar color="primary" class="ui-header-bar" dark flat fixed app>
       <router-link to="login" color="color-text">
-        <v-img
-          src="/img/logo.png"
-          lazy-src="/img/logo.png"
-          max-width="80"
-          max-height="50"
-        ></v-img>
+        <v-img src="/img/logo.png" lazy-src="/img/logo.png" max-width="80" max-height="50"></v-img>
       </router-link>
       <!-- <v-toolbar-title>
         <router-link to="/" class="title-main color-text--text">{{getAppName}}</router-link>
-      </v-toolbar-title> -->
+      </v-toolbar-title>-->
       <v-spacer></v-spacer>
       <v-menu left>
         <template v-slot:activator="{ on }">
@@ -32,16 +27,21 @@
           <div class="color-text--text">Dark Mode</div>
         </template>
       </v-switch>
-      <template v-slot:extension>
-        <UiTopMenu></UiTopMenu>
+      <v-btn color="secondary" dark @click.stop="drawer = !drawer" class="mx-2 d-flex d-md-none" fab small>
+        <v-icon dark>mdi-menu</v-icon>
+      </v-btn>
+      <template v-slot:extension class="d-none d-md-flex d-lg-flex">
+        <UiTopMenu class="d-none d-md-flex d-lg-flex"></UiTopMenu>
       </template>
     </v-app-bar>
+    <UiSidebar></UiSidebar>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import UiTopMenu from "./UiTopMenu";
+import UiSidebar from "./UiSidebar";
 import light from "@/plugins/light";
 import dark from "@/plugins/dark";
 
@@ -66,13 +66,22 @@ export default {
       "getDefaultLang",
       "getCurrentLang",
       "getAvailableLangs"
-    ])
+    ]),
+    ...mapGetters(["navigationDraw"]),
+    drawer: {
+      set: function(val) {
+        this.$store.commit("SET_NAVIGATION_DRAW", val);
+      },
+      get: function() {
+        return this.navigationDraw;
+      }
+    }
   },
   mounted() {
     window.document.title = this.$route.meta.title;
     this.setLightMode();
   },
-  components: { UiTopMenu },
+  components: { UiTopMenu, UiSidebar },
   methods: {
     setLightMode: function() {
       for (var item of Object.keys(light)) {

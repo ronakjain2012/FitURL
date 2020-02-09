@@ -61,28 +61,28 @@ export default {
       {
         title: "Services",
         children: [
-          "Apply Now",
-          "Solicitud en Español",
-          "Construction Loan Application",
-          "Mortgage Learning Center",
-          "Calculators",
+          "Short URL",
+          "API Intigration",
+          "Page Intigration (iFrame)",
+          "Smart URLs",
+          "Click Report",
           "FAQs"
         ]
       },
       {
         title: "Links",
         children: [
-          "Become a Branch",
-          "Become a Loan Officer",
-          "Become a Partner"
+          "Help By Donations",
+          "Register",
+          "Pricing"
         ]
       },
       {
         title: "Support",
         children: [
-          "City First Story",
-          "Become Part of Our Story",
-          "Financial Health Help"
+          "Report Abuse",
+          "Get A Quote",
+          "Donations"
         ]
       }
     ]

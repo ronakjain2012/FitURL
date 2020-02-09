@@ -51,7 +51,7 @@
         </v-col>
       </v-row>
       <v-row align="center" justify="center">
-        <v-col cols="3" class="text-center color-text--text">
+        <v-col md="3" cols="12" class="text-center color-text--text">
           <v-card class="mx-auto my-12">
             <v-avatar color="color-secondary" height="100" width="100">
               <v-icon color="color-text-invert" size="80">mdi-link</v-icon>
@@ -99,7 +99,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="3" class="text-center color-secondary--text">
+        <v-col md="3" cols="12" class="text-center color-secondary--text">
           <v-card class="mx-auto my-12">
             <v-avatar color="color-secondary" height="100" width="100">
               <v-icon color="color-text-invert" size="80">mdi-google-circles-extended</v-icon>
@@ -135,7 +135,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="3" class="text-center color-secondary--text">
+        <v-col md="3" cols="12" class="text-center color-secondary--text">
           <v-card class="mx-auto my-12">
             <v-avatar color="color-secondary" height="100" width="100">
               <v-icon color="color-text-invert" size="80">mdi-equalizer-outline</v-icon>
@@ -183,7 +183,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="3" class="text-center color-secondary--text">
+        <v-col md="3" cols="12" class="text-center color-secondary--text">
           <v-card class="mx-auto my-12">
             <v-avatar color="color-secondary" height="100" width="100">
               <v-icon color="color-text-invert" size="80">mdi-chart-line</v-icon>
@@ -221,7 +221,7 @@
         </v-col>
       </v-row>
       <v-row align="center" justify="center">
-        <v-col cols="3" class="text-center color-text--text">
+        <v-col md="3" cols="12" class="text-center color-text--text">
           <v-card class="mx-auto my-12">
             <v-avatar color="color-secondary" height="100" width="100">
               <v-icon color="color-text-invert" size="80">mdi-monitor</v-icon>
@@ -257,7 +257,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="3" class="text-center color-secondary--text">
+        <v-col md="3" cols="12" class="text-center color-secondary--text">
           <v-card class="mx-auto my-12">
             <v-avatar color="color-secondary" height="100" width="100">
               <v-icon color="color-text-invert" size="80">mdi-piggy-bank</v-icon>
@@ -305,7 +305,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="3" class="text-center color-secondary--text">
+        <v-col md="3" cols="12" class="text-center color-secondary--text">
           <v-card class="mx-auto my-12">
             <v-avatar color="color-secondary" height="100" width="100">
               <v-icon color="color-text-invert" size="80">mdi-desktop-mac-dashboard</v-icon>
@@ -341,7 +341,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="3" class="text-center color-secondary--text">
+        <v-col md="3" cols="12" class="text-center color-secondary--text">
           <v-card class="mx-auto my-12">
             <v-avatar color="color-secondary" height="100" width="100">
               <v-icon color="color-text-invert" size="80">mdi-shield-link-variant</v-icon>
@@ -418,13 +418,13 @@
                         <v-avatar width="150" height="150">
                           <img
                             :src="slide.avatar"
-                            lazy-src="https://pluspng.com/img-png/png-logo-design-fancy-png-logo-design-91-on-professional-logo-design-with-png-logo-design-734.png"
+                            lazy-src="/img/logo.png"
                             :alt="slide.name"
                           />
                         </v-avatar>
                       </div>
                       <div class="display-3">{{ slide.name }}</div>
-                      <div class="display-1">{{ slide.feedback }}</div>
+                      <div class="title">{{ slide.feedback }}</div>
                       <div class="display-4">
                         <v-rating
                           :value="Math.min(parseInt(slide.rating),5)"

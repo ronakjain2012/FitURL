@@ -19,34 +19,15 @@ export default {
         }
       ]
     },
-    currentContext: {
-      root: true,
-      user: false,
-      company: false
-    },
-    currentUser: {},
-    currentCompany: {},
-    availableUsers: [],
-    availableCompanies: [],
-    showUserPicker: false,
-    showCompanyPicker: false,
-    showAction: false,
-    routeList: [],
-    startPage: "/",
-    initAuthDone: false,
-    initMenuLoadDone: false,
-    permissions: []
+    navigationDraw: false
   },
   mutations: {
+    SET_NAVIGATION_DRAW: (state, payload) => {
+      state.navigationDraw = payload;
+    }
   },
   getters: {
-    getContextUser: state => state.currentUser,
-    getAppConfig: state => state.appConfig,
-    getAppName: state => state.appConfig.name,
-    getAppLogo: state => state.appConfig.avatar,
-    getAppVersion: state => state.appConfig.version,
-    getDefaultLang: state => state.appConfig.defaultLang,
-    getCurrentLang: state => state.appConfig.currentLang,
-    getAvailableLangs: state => state.appConfig.availableLangs
+    navigationDraw: state => state.navigationDraw,
+    getCurrentLang: state => state.appConfig.currentLang
   }
 };
