@@ -7,9 +7,15 @@
         </v-overlay>
       </div>
       <div v-else class="block-main-container">
-        <UiHeader/>
+        <UiHeader />
         <keep-alive>
-          <router-view></router-view>
+          <transition name="routerAnimation" enter-active-class="animated fadeIn">
+            <v-content>
+              <v-layout>
+                <router-view></router-view>
+              </v-layout>
+            </v-content>
+          </transition>
         </keep-alive>
       </div>
     </div>
@@ -28,7 +34,7 @@ export default {
       "apiProcessStatus"
     ])
   },
-  components:{UiHeader},
+  components: { UiHeader },
   watch: {
     progressStatus: function(newVal) {
       if (newVal === true) {
@@ -51,12 +57,19 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $color-text;
-  background-color: $color-background-dashboard-main !important;
+  background-color: $color-main-background !important;
 }
 .ex-overlay,
 .v-overlay,
 .v-overlay__scrim {
   background-color: var(--color-secondary) !important;
   color: var(--color-main) !important;
+}
+.v-toolbar__extension {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+.top-header {
+  min-width: 100%;
 }
 </style>

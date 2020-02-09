@@ -1,6 +1,6 @@
 <template>
   <div class="ui-header">
-    <v-app-bar color="primary" class="ui-header-bar" dark elevation="0">
+    <v-app-bar color="primary" class="ui-header-bar" dark flat fixed app>
       <router-link to="login" color="color-text">
         <v-img
           :src="getAppLogo"
@@ -32,14 +32,16 @@
           <div class="color-text--text">Dark Mode</div>
         </template>
       </v-switch>
+      <template v-slot:extension>
+        <UiTopMenu></UiTopMenu>
+      </template>
     </v-app-bar>
-    <UiTopMenu></UiTopMenu>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import UiTopMenu from './UiTopMenu';
+import UiTopMenu from "./UiTopMenu";
 import light from "@/plugins/light";
 import dark from "@/plugins/dark";
 
@@ -70,7 +72,7 @@ export default {
     window.document.title = this.$route.meta.title;
     this.setLightMode();
   },
-  components:{UiTopMenu},
+  components: { UiTopMenu },
   methods: {
     setLightMode: function() {
       for (var item of Object.keys(light)) {

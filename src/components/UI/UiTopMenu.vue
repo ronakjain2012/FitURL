@@ -2,7 +2,7 @@
   <div class="top-header text-center"> 
     <v-menu :close-on-content-click="false" :nudge-width="200" nudge-bottom open-on-hover offset-y>
       <template v-slot:activator="{ on }">
-        <v-btn class="main-items" v-on="on" depressed tile text>
+        <v-btn class="main-items" x-large v-on="on" depressed tile text>
           <span class="main-items-title">Features</span>
         </v-btn>
       </template>
@@ -61,14 +61,14 @@
     </v-menu>
 
     <router-link to="/home">
-      <v-btn class="main-items" v-on="on" depressed tile text>
+      <v-btn x-large class="main-items" v-on="on" depressed tile text>
         <span class="main-items-title">Pricing</span>
       </v-btn>
     </router-link>
 
     <v-menu :close-on-content-click="false" :nudge-width="200" nudge-bottom open-on-hover offset-y>
       <template v-slot:activator="{ on }">
-        <v-btn class="main-items" v-on="on" depressed tile text>
+        <v-btn x-large class="main-items" v-on="on" depressed tile text>
           <span class="main-items-title">Intigrations</span>
         </v-btn>
       </template>
@@ -112,7 +112,7 @@
 
     <v-menu :close-on-content-click="false" :nudge-width="200" nudge-bottom open-on-hover offset-y>
       <template v-slot:activator="{ on }">
-        <v-btn class="main-items" v-on="on" depressed tile text>
+        <v-btn x-large class="main-items" v-on="on" depressed tile text>
           <span class="main-items-title">Dashboard</span>
         </v-btn>
       </template>
@@ -140,7 +140,7 @@
 
     <v-menu :close-on-content-click="false" :nudge-width="200" nudge-bottom open-on-hover offset-y>
       <template v-slot:activator="{ on }">
-        <v-btn class="main-items" v-on="on" depressed tile text>
+        <v-btn x-large class="main-items" v-on="on" depressed tile text>
           <span class="main-items-title">Company</span>
         </v-btn>
       </template>
@@ -175,7 +175,7 @@
     </v-menu>
 
     <router-link to="/home">
-      <v-btn class="main-items" v-on="on" depressed tile text>
+      <v-btn x-large class="main-items" v-on="on" depressed tile text>
         <v-icon left>mdi-gift-outline</v-icon>
         <span class="main-items-title">Donate</span>
       </v-btn>
