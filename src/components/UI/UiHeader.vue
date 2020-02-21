@@ -1,7 +1,7 @@
 <template>
   <div class="ui-header">
     <v-app-bar color="primary" class="ui-header-bar" dark flat fixed app>
-      <router-link to="login" color="color-text">
+      <router-link to="/" color="color-text">
         <v-img src="/img/logo.png" lazy-src="/img/logo.png" max-width="80" max-height="50"></v-img>
       </router-link>
       <!-- <v-toolbar-title>
@@ -78,11 +78,14 @@ export default {
     }
   },
   mounted() {
-    window.document.title = this.$route.meta.title;
+    this.setTitle()
     this.setLightMode();
   },
   components: { UiTopMenu, UiSidebar },
   methods: {
+    setTitle(str) {
+      window.document.title = str||'FitURL converting urls to digital seeds';
+    },
     setLightMode: function() {
       for (var item of Object.keys(light)) {
         document.documentElement.style.setProperty(
@@ -126,7 +129,7 @@ export default {
   },
   watch: {
     $route(toRoute) {
-      window.document.title = toRoute.meta.title;
+      this.setTitle()
     },
     "$vuetify.theme.dark": function(newValue) {
       if (newValue) {

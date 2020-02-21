@@ -1,6 +1,6 @@
 <template>
   <div class="top-header text-center"> 
-    <v-menu :close-on-content-click="false" :nudge-width="200" nudge-bottom open-on-hover offset-y>
+    <v-menu :close-on-content-click="false" :nudge-width="200" nudge-bottom open-on-hover offset-y class="justify-center">
       <template v-slot:activator="{ on }">
         <v-btn class="main-items" x-large v-on="on" depressed tile text>
           <span class="main-items-title">Features</span>
@@ -198,8 +198,9 @@ export default {
 <style lang="scss">
 .top-header {
   background-color: $color-secondary;
+  justify-content: center;
   .main-items {
-    background-color: $color-secondary;
+    background-color: $color-secondary; 
     margin-right: 1rem;
     margin-left: 1rem;
     &-title,
