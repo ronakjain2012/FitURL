@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="drawer" absolute temporary right class="color-text--text" >
+  <v-navigation-drawer v-model="drawer" absolute temporary hide-overlay class="color-text--text" >
     <v-list>
       <v-list-item>
         <v-list-item-title class="color-text--text">

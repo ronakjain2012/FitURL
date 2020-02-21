@@ -1,5 +1,5 @@
 <template>
-  <v-container class="ex-container" fluid>
+  <v-container class="ex-container" >
     <div class="section">
       <div class="timeline-section">
         <v-row align="center" justify="center">
@@ -519,7 +519,7 @@ export default {
             "Links are the main touchpoint between you and your customers. Every time you click, tap or swipe you’re using a link. “FitURL.com” provides the most complete link management solution that puts your brand first"
         },
         {
-          id: 2,
+          id: 3,
           content:
             "Your shortened URLs can be used in publications, advertisements, blogs, forums, e-mails, instant messages, and other locations. Track statistics for your business and projects by monitoring the number of hits from your URL with the click counter"
         }

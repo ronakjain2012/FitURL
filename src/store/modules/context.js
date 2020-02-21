@@ -19,7 +19,7 @@ export default {
         }
       ]
     },
-    navigationDraw: false
+    navigationDraw: null
   },
   mutations: {
     SET_NAVIGATION_DRAW: (state, payload) => {
